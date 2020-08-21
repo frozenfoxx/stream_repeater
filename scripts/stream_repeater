@@ -1,0 +1,8 @@
+#!/usr/bin/env python3
+'''
+Run stream_repaeter
+'''
+
+import stream_repeater
+
+stream_repeater.main()

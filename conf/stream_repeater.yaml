@@ -1,0 +1,17 @@
+--- 
+accounts: 
+  bandcamp.com: 
+    password: passwordhere
+    token: tokenhere
+    username: usernamehere
+  spotify.com: 
+    password: passwordhere
+    token: tokenhere
+    username: usernamehere
+streams: 
+  song1: 
+    cover: cover.jpg
+    filename: filehere.wav
+    performer: "Performer Name"
+    title: "Song Title"
+
