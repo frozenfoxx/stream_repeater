@@ -5,11 +5,14 @@ FROM python:3-alpine
 LABEL maintainer="FrozenFOXX <frozenfoxx@churchoffoxx.net>"
 
 # Variables
-
-# Install
 WORKDIR /app
-ENV APPDIR="/app"
+ENV APPDIR="/app" \
+  APP_DEPS="ffmpeg"
 
+# Install package dependencies
+RUN apk -U add ${APP_DEPS}
+
+# Install Python dependencies
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 

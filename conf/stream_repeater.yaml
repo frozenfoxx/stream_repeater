@@ -8,10 +8,8 @@ accounts:
     password: passwordhere
     token: tokenhere
     username: usernamehere
-streams: 
-  song1: 
-    cover: cover.jpg
-    filename: filehere.wav
-    performer: "Performer Name"
-    title: "Song Title"
-
+stream: 
+  cover: cover.jpg
+  filename: filehere.wav
+  performer: "Performer Name"
+  title: "Song Title"
