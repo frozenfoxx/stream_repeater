@@ -16,6 +16,7 @@ class Options(object):
         """ Parse optional arguments """
 
         parser = argparse.ArgumentParser()
+        parser.add_argument("-b", "--batchmode", dest="batchmode", default=False, type=bool, action='store_true', help="run in batchmode")
         parser.add_argument("-c", "--config", dest="config", default="/etc/stream_repeater/conf/stream_repeater.yaml", type=str, help="path to config file")
         args = parser.parse_args()
 

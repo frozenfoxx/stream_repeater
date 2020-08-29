@@ -28,12 +28,10 @@ class Prompt(Cmd, object):
             convert_to_mp3 """
 
         # Check argument list
-        if len(args) == 0:
-            print("Error: argument list cannot be empty")
-        elif len(args.split()) != 1:
-            print("Error: argument list incorrect")
+        if len(args) > 0:
+            print("Error: method does not take arguments")
         else:
-            filename = self.options.stream.filename
+            filename = self.options['system']['datadir'] + "/" + self.options['stream']['filename']
             recording = AudioSegment.from_wav(filename)
             recording_base_name = os.path.splitext(filename)[0]
             mp3_filename = recording_base_name + ".mp3"
@@ -47,7 +45,7 @@ class Prompt(Cmd, object):
                     }
                 )
             
-            printf("Converted " + filename + " to " + mp3_filename)
+            print("Converted " + filename + " to " + mp3_filename)
 
     def do_quit(self, args):
         """ Quit the program """

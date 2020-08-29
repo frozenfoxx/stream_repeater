@@ -11,10 +11,16 @@ import sys
 def main():
     """ Main execution thread """
 
+    args = Options().parse_args()
     options = Options().load_options()
-    prompt = Prompt(options)
-    prompt.prompt = 'stream_repeater> '
-    prompt.cmdloop('Starting stream_repeater interface...')
+
+    # Check if running in batchmode or interactive
+    if args.batchmode:
+        print("Running in batchmode...")
+    else:
+        prompt = Prompt(options)
+        prompt.prompt = 'stream_repeater> '
+        prompt.cmdloop('Starting stream_repeater interface...')
 
 if __name__ == "__main__":
     sys.exit(main())

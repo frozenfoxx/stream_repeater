@@ -1,5 +1,5 @@
 --- 
-accounts: 
+accounts:
   bandcamp.com: 
     password: passwordhere
     token: tokenhere
@@ -8,7 +8,9 @@ accounts:
     password: passwordhere
     token: tokenhere
     username: usernamehere
-stream: 
+system:
+  datadir: /data
+stream:
   cover: cover.jpg
   filename: filehere.wav
   performer: "Performer Name"

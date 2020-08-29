@@ -24,7 +24,22 @@ To load the interface interactively provide the following:
 docker run \
   -it \
   --rm \
-  -v [path to]/stream_repeater.yaml:/data/stream_repeater.yaml \
+  -v [mount point]:/data \
   frozenfoxx/stream_repeater:latest \
+    -c /data/stream_repeater.yaml
+```
+
+To run in batchmode:
+
+```
+To load the interface interactively provide the following:
+
+```
+docker run \
+  -it \
+  --rm \
+  -v [mount point]:/data \
+  frozenfoxx/stream_repeater:latest \
+    -b \
     -c /data/stream_repeater.yaml
 ```
