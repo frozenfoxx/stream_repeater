@@ -20,7 +20,7 @@ class Prompt(Cmd, object):
     def do_options(self, args):
         """ List loaded options """
 
-        print(yaml.dump(self.options))
+        print(self.options.dump)
 
     def do_convert_to_mp3(self, args):
         """ Convert a recording to MP3
@@ -28,9 +28,9 @@ class Prompt(Cmd, object):
 
         # Check argument list
         if len(args) == 0:
-            print("[-] Error: argument list cannot be empty")
+            print("Error: argument list cannot be empty")
         elif len(args.split()) != 1:
-            print("[-] Error: argument list incorrect")
+            print("Error: argument list incorrect")
         else:
             filename = self.options.stream.filename
             recording = AudioSegment.from_wav(filename)

@@ -14,7 +14,7 @@ def main():
     options = Options().load_options()
     prompt = Prompt(options)
     prompt.prompt = 'stream_repeater> '
-    prompt.cmdloop('[+] Starting stream_repeater interface...')
+    prompt.cmdloop('Starting stream_repeater interface...')
 
 if __name__ == "__main__":
     sys.exit(main())
