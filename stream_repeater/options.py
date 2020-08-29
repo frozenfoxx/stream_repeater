@@ -2,8 +2,8 @@
 
 import argparse
 import io
-import sys
 import os
+import sys
 import yaml
 
 class Options(object):
@@ -26,10 +26,10 @@ class Options(object):
 
         args = self.parse_args()
 
-        print("[+] Reading configuration file")
+        print("Reading configuration file")
         try:
             with open(args.config) as f:
-                print("[+] Loading options from file")
+                print("Loading options from file")
                 self.options = yaml.load(f, Loader=yaml.FullLoader)
         except Exception as e:
             sys.exit("Unable to read config file, does it exist?")
