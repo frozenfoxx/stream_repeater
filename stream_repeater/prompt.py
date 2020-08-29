@@ -6,6 +6,7 @@ else:
     from options import Options
 import os
 import sys
+import yaml
 from cmd import Cmd
 from pydub import AudioSegment
 
@@ -20,7 +21,7 @@ class Prompt(Cmd, object):
     def do_options(self, args):
         """ List loaded options """
 
-        print(self.options.dump)
+        print(yaml.dump(self.options))
 
     def do_convert_to_mp3(self, args):
         """ Convert a recording to MP3
