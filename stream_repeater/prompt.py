@@ -2,13 +2,14 @@
 
 if __package__:
     from .options import Options
+    from .stream import Stream
 else:
     from options import Options
+    from stream import Stream
 import os
 import sys
 import yaml
 from cmd import Cmd
-from pydub import AudioSegment
 
 class Prompt(Cmd, object):
     """ Handle user input """
@@ -17,6 +18,7 @@ class Prompt(Cmd, object):
         super(Prompt, self).__init__()
 
         self.options = options
+        self.stream = Stream(self.options)
 
     def do_options(self, args):
         """ List loaded options """
@@ -31,21 +33,7 @@ class Prompt(Cmd, object):
         if len(args) > 0:
             print("Error: method does not take arguments")
         else:
-            filename = self.options['system']['datadir'] + "/" + self.options['stream']['filename']
-            recording = AudioSegment.from_wav(filename)
-            recording_base_name = os.path.splitext(filename)[0]
-            mp3_filename = recording_base_name + ".mp3"
-            recording.export(
-                mp3_filename,
-                bitrate="320k",
-                format="mp3",
-                tags={
-                    'artist': 'Various artists',
-                    'album': 'Streams'
-                    }
-                )
-            
-            print("Converted " + filename + " to " + mp3_filename)
+            self.stream.convert_to_mp3()
 
     def do_quit(self, args):
         """ Quit the program """
