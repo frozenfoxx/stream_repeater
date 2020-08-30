@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 if __package__:
+    from .cuesheet import CueSheet
     from .options import Options
     from .prompt import Prompt
     from .stream import Stream
 else:
+    from cuesheet import CueSheet
     from options import Options
     from prompt import Prompt
     from stream import Stream
