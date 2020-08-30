@@ -17,6 +17,8 @@ def main():
     # Check if running in batchmode or interactive
     if args.batchmode:
         print("Running in batchmode...")
+        stream = Stream(options)
+        stream.convert_to_mp3()
     else:
         prompt = Prompt(options)
         prompt.prompt = 'stream_repeater> '
