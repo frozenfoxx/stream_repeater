@@ -19,9 +19,11 @@ class Stream(object):
     def convert_to_mp3(self):
         """ Convert a recording to MP3 """
 
-        filepath = self.datadir + "/" + self.filename
-        recording = AudioSegment.from_wav(filepath)
-        mp3_filename = os.path.splitext(filepath)[0] + ".mp3"
+        stream_file_path = self.datadir + "/" + self.filename
+        cover_file_path = self.datadir + "/" + self.cover
+
+        recording = AudioSegment.from_wav(stream_file_path)
+        mp3_filename = os.path.splitext(stream_file_path)[0] + ".mp3"
         recording.export(
             mp3_filename,
             bitrate=self.bitrate,
@@ -31,7 +33,7 @@ class Stream(object):
                 'album': self.album,
                 'title': self.title
                 },
-            cover=self.cover
+            cover=cover_file_path
             )
             
-        print("Converted " + filepath + " to " + mp3_filename)
+        print("Converted " + stream_file_path + " to " + mp3_filename)

@@ -2,9 +2,11 @@
 if __package__:
     from .options import Options
     from .prompt import Prompt
+    from .stream import Stream
 else:
     from options import Options
     from prompt import Prompt
+    from stream import Stream
 import importlib
 import sys
 
