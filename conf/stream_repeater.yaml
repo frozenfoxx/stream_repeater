@@ -11,7 +11,9 @@ accounts:
 system:
   datadir: /data
 stream:
+  album: "Streams"
+  artist: "Various Artists"
+  bitrate: "320k"
   cover: cover.jpg
   filename: filehere.wav
-  performer: "Performer Name"
   title: "Song Title"
