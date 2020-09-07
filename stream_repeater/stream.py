@@ -12,6 +12,7 @@ class Stream(object):
         self.artist = options['stream']['artist']
         self.bitrate = options['stream']['bitrate']
         self.cover = options['stream']['cover']
+        self.cuesheet = options['stream']['cuesheet']
         self.datadir = options['system']['datadir']
         self.filename = options['stream']['filename']
         self.title = options['stream']['title']

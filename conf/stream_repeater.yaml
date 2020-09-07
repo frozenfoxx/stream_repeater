@@ -15,5 +15,6 @@ stream:
   artist: "Various Artists"
   bitrate: "320k"
   cover: cover.jpg
+  cuesheet: "Cue Sheet.cue"
   filename: filehere.wav
   title: "Song Title"

@@ -1,9 +1,11 @@
 """ Interactive Prompt """
 
 if __package__:
+    from .cuesheet import CueSheet
     from .options import Options
     from .stream import Stream
 else:
+    from cuesheet import CueSheet
     from options import Options
     from stream import Stream
 import os
@@ -18,6 +20,7 @@ class Prompt(Cmd, object):
         super(Prompt, self).__init__()
 
         self.options = options
+        self.cuesheet = CueSheet(self.options)
         self.stream = Stream(self.options)
 
     def do_options(self, args):
@@ -34,6 +37,16 @@ class Prompt(Cmd, object):
             print("Error: method does not take arguments")
         else:
             self.stream.convert_to_mp3()
+
+    def do_read_cuesheet(self, args):
+        """ Read the CUE sheet
+            read_cuesheet """
+
+        # Check argument list
+        if len(args) > 0:
+            print("Error: method does not take arguments")
+        else:
+            self.cuesheet.read()
 
     def do_quit(self, args):
         """ Quit the program """
