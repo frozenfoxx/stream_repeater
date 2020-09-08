@@ -71,7 +71,7 @@ class CueSheet(object):
 
     def __index(self, idx, s):
         idx = int(idx)
-        self.tracks[-1].time[idx] = self.index_split(s)
+        self.tracks[-1].start_time[idx] = self.index_split(s)
 
     def csv(self):
         """ Convert a CUE sheet to CSV """
