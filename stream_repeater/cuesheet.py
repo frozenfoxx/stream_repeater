@@ -15,6 +15,7 @@ class CueSheet(object):
         self.date = ''
         self.file = ''
         self.genre = ''
+        self.index = ''
         self.performer = ''
         self.cuesheet = options['stream']['cuesheet']
         self.title = ''
@@ -85,5 +86,5 @@ class CueSheet(object):
                 match_result = regex.match(line.strip())
                 if match_result:
                     handler(*self.unquote(match_result.groups()))
-            self.tracks.append( Track(self.__title, self.__file) )
+            self.tracks.append( Track(self.__performer, self.__title, self.__file, self.__index) )
 
