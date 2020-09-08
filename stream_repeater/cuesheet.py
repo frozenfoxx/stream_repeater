@@ -13,6 +13,7 @@ class CueSheet(object):
     def __init__(self, options):
         self.datadir = options['system']['datadir']
         self.date = ''
+        self.file = ''
         self.genre = ''
         self.performer = ''
         self.cuesheet = options['stream']['cuesheet']
@@ -33,7 +34,7 @@ class CueSheet(object):
         self.date = s
 
     def __file(self, s):
-        self.current_file = s
+        self.file = s
 
     def __genre(self, s):
         self.genre = s
@@ -51,7 +52,7 @@ class CueSheet(object):
             self.tracks[-1].title = s
 
     def __track(self, s):
-        self.tracks.append( Track(s.title, self.current_file) )
+        self.track = s
 
     @staticmethod
     def dqstrip(s):
@@ -84,4 +85,5 @@ class CueSheet(object):
                 match_result = regex.match(line.strip())
                 if match_result:
                     handler(*self.unquote(match_result.groups()))
+            self.tracks.append( Track(self.__title, self.__file) )
 
