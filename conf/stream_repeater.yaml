@@ -12,9 +12,9 @@ system:
   datadir: /data
 stream:
   album: "Streams"
-  artist: "Various Artists"
   bitrate: "320k"
   cover: cover.jpg
   cuesheet: "Cue Sheet.cue"
   filename: filehere.wav
+  performer: "Various Artists"
   title: "Song Title"

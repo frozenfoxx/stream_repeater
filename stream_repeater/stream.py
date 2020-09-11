@@ -9,12 +9,12 @@ class Stream(object):
 
     def __init__(self, options):
         self.album = options['stream']['album']
-        self.artist = options['stream']['artist']
         self.bitrate = options['stream']['bitrate']
         self.cover = options['stream']['cover']
         self.cuesheet = options['stream']['cuesheet']
         self.datadir = options['system']['datadir']
         self.filename = options['stream']['filename']
+        self.performer = options['stream']['performer']
         self.title = options['stream']['title']
 
     def convert_to_mp3(self):
@@ -30,7 +30,7 @@ class Stream(object):
             bitrate=self.bitrate,
             format="mp3",
             tags={
-                'artist': self.artist,
+                'artist': self.performer,
                 'album': self.album,
                 'title': self.title
                 },

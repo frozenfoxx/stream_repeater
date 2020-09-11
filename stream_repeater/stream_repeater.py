@@ -24,12 +24,12 @@ def main():
         stream = Stream(options)
         cuesheet = CueSheet(options)
 
-        print("Converting to MP3...")
-        stream.convert_to_mp3()
-
         print("Loading CUE sheet...")
         cuesheet.load()
         cuesheet.dump()
+
+        print("Converting to MP3...")
+        stream.convert_to_mp3()
     else:
         prompt = Prompt(options)
         prompt.prompt = 'stream_repeater> '

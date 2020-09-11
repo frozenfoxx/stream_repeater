@@ -46,7 +46,8 @@ class Prompt(Cmd, object):
         if len(args) > 0:
             print("Error: method does not take arguments")
         else:
-            self.cuesheet.read()
+            self.cuesheet.load()
+            self.cuesheet.dump()
 
     def do_quit(self, args):
         """ Quit the program """
