@@ -62,7 +62,7 @@ class CueSheet(object):
         self.index = self.index_time(s)
 
     def __performer(self, s):
-        if in_header:
+        if self.in_header:
             self.header['performer'] = s
         else:
             self.performer = s
