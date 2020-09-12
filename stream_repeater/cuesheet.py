@@ -36,7 +36,7 @@ class CueSheet(object):
 			(re.compile(r'PERFORMER\s(.+)'), self.__performer),
 			(re.compile(r'REM DATE\s(.+)'), self.__date),
 			(re.compile(r'REM GENRE\s(.+)'), self.__genre),
-            (re.compile(r'REM RECORDED_BY\s(.+)', self.__recorded_by)),
+            (re.compile(r'REM RECORDED_BY\s(.+)'), self.__recorded_by),
 			(re.compile(r'TITLE\s(.+)'), self.__title),
 			(re.compile(r'TRACK\s(\d{2})\sAUDIO'), self.__track_number)
 		)
@@ -100,7 +100,7 @@ class CueSheet(object):
             self._reset_track_attr()
             self.track_number = s
         # We are at the first track
-        else
+        else:
             self.track_number = s
 
     def commit_track(self):
