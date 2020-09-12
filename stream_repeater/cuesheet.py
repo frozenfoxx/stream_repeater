@@ -80,7 +80,7 @@ class CueSheet(object):
         self.track_number = ''
 
     def __title(self, s):
-        if in_header:
+        if self.in_header:
             self.header['title'] = s
         else:
             self.performer = s
