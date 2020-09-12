@@ -157,5 +157,5 @@ class CueSheet(object):
                     handler(*self.unquote(match_result.groups()))
 
         # Commit the last track
-        commit_track()
+        self.commit_track()
 
