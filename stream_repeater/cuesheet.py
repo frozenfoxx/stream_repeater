@@ -45,7 +45,7 @@ class CueSheet(object):
         self.date = s
 
     def __filename(self, s):
-        if in_header:
+        if self.in_header:
             self.header['filename'] = s
         else:
             self.filename = s
@@ -92,7 +92,7 @@ class CueSheet(object):
             keep track of being in a header """
 
         # If no Tracks have been recorded then we're out of the header
-        if not tracks:
+        if not self.tracks:
             self.in_header = False
         # If track_number is populated then we have loaded all info for a track and are ready to commit
         elif not self.track_number:
