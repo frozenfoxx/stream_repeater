@@ -92,7 +92,7 @@ class CueSheet(object):
             keep track of being in a header """
 
         # If no Tracks have been recorded then we're out of the header
-        if not self.tracks:
+        if self.in_header:
             self.in_header = False
             self.track_number = s
         # We have loaded all info for a previous track and are ready to commit
@@ -104,7 +104,7 @@ class CueSheet(object):
     def commit_track(self):
         """ Add a Track to the list of discovered tracks """
 
-        self.tracks.append( Track(self.__performer, self.__title, self.__filename, self.__track_number, self.__index) )
+        self.tracks.append( Track(self.performer, self.title, self.filename, self.track_number, self.index) )
 
     @staticmethod
     def dqstrip(s):
