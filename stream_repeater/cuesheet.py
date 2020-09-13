@@ -55,7 +55,7 @@ class CueSheet(object):
 
     def __index(self, s):
         self.index = s
-    
+
     def __index(self, idx, s):
         """ Handler for when the index number and time string are given """
 
@@ -134,7 +134,7 @@ class CueSheet(object):
         for key in self.header:
             print(str(key) + ": " + str(self.header[key]))
         for idx, val in enumerate(self.tracks):
-            print("Track No: " + str(idx))
+            print("Track No: " + str(val.track_number))
             print("  Artist: " + str(val.performer))
             print("  Title: " + str(val.title))
             print("  Index Time: " + str(val.index_time))
