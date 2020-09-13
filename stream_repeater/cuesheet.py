@@ -70,7 +70,7 @@ class CueSheet(object):
     def __recorded_by(self, s):
         self.recorded_by = s
 
-    def _reset_track_attr():
+    def __reset_track_attr(self):
         """ Reset the values track-related attributes """
 
         self.filename = ''
@@ -94,13 +94,11 @@ class CueSheet(object):
         # If no Tracks have been recorded then we're out of the header
         if not self.tracks:
             self.in_header = False
-        # If track_number is populated then we have loaded all info for a track and are ready to commit
-        elif not self.track_number:
-            self.commit_track()
-            self._reset_track_attr()
             self.track_number = s
-        # We are at the first track
+        # We have loaded all info for a previous track and are ready to commit
         else:
+            self.commit_track()
+            self.__reset_track_attr()
             self.track_number = s
 
     def commit_track(self):
@@ -133,8 +131,8 @@ class CueSheet(object):
     def dump(self):
         """ Dump the loaded CUE sheet """
 
-        for key, val in self.header:
-            print(str(key) + ": " + str(val))
+        for key in self.header:
+            print(str(key) + ": " + str(self.header[key]))
         for idx, val in enumerate(self.tracks):
             print("Track No: " + str(idx))
             print("  Artist: " + str(val.performer))
@@ -158,4 +156,4 @@ class CueSheet(object):
 
         # Commit the last track
         self.commit_track()
-
+        self.__reset_track_attr()
