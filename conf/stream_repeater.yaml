@@ -4,6 +4,9 @@ accounts:
     password: passwordhere
     token: tokenhere
     username: usernamehere
+  mixcloud.com:
+    access_token: tokenhere
+    username: usernamehere
   spotify.com: 
     password: passwordhere
     token: tokenhere
