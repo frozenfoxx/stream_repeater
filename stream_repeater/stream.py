@@ -15,6 +15,7 @@ class Stream(object):
         self.datadir = options['system']['datadir']
         self.filename = options['stream']['filename']
         self.performer = options['stream']['performer']
+        self.tags = options['stream']['tags']
         self.title = options['stream']['title']
 
     def convert_to_mp3(self):
