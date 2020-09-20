@@ -3,10 +3,12 @@
 if __package__:
     from .cuesheet import CueSheet
     from .options import Options
+    from .services.mixcloud import Mixcloud
     from .stream import Stream
 else:
     from cuesheet import CueSheet
     from options import Options
+    from services.mixcloud import Mixcloud
     from stream import Stream
 import os
 import sys
@@ -22,6 +24,8 @@ class Prompt(Cmd, object):
         self.options = options
         self.cuesheet = CueSheet(self.options)
         self.stream = Stream(self.options)
+
+        self.mixcloud = Mixcloud(self.options)
 
     def do_options(self, args):
         """ List loaded options """
@@ -48,6 +52,16 @@ class Prompt(Cmd, object):
         else:
             self.cuesheet.load()
             self.cuesheet.dump()
+
+    def do_upload_mixcloud(self, args):
+        """ Upload the stream to Mixcloud
+            upload_mixcloud """
+        
+        # Check argument list
+        if len(args) > 0:
+            print("Error: method does not take arguments")
+        else:
+            self.mixcloud.upload()
 
     def do_quit(self, args):
         """ Quit the program """

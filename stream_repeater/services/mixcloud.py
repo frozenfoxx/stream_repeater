@@ -17,6 +17,7 @@ class Mixcloud(object):
         url = self.base_url + "/upload/?access_token=" + self.token
 
         payload = {
-            'mp3': self.stream.filename
+            'mp3': self.stream.filename,
+            'name': self.stream.title
         }
         requests.post(url, data=payload)

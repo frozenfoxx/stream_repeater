@@ -20,4 +20,7 @@ stream:
   cuesheet: "Cue Sheet.cue"
   filename: filehere.wav
   performer: "Various Artists"
+  tags:
+    - 'podcast'
+    - 'stream'
   title: "Song Title"
