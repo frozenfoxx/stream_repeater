@@ -25,12 +25,23 @@ class Prompt(Cmd, object):
         self.cuesheet = CueSheet(self.options)
         self.stream = Stream(self.options)
 
-        self.mixcloud = Mixcloud(self.options)
+        # Load service objects
+        self.mixcloud = Mixcloud(self.options, self.stream, self.cuesheet)
 
     def do_options(self, args):
         """ List loaded options """
 
         print(yaml.dump(self.options))
+
+    def do_authorize_mixcloud(self, args):
+        """ Authorize Mixcloud
+            authorize_mixcloud """
+        
+        # Check argument list
+        if len(args) > 0:
+            print("Error: method does not take arguments")
+        else:
+            self.mixcloud.authorize()
 
     def do_convert_to_mp3(self, args):
         """ Convert a recording to MP3
@@ -54,14 +65,13 @@ class Prompt(Cmd, object):
             self.cuesheet.dump()
 
     def do_upload_mixcloud(self, args):
-        """ Upload the stream to Mixcloud
-            upload_mixcloud """
+        """ Upload the stream to Mixcloud """
         
         # Check argument list
         if len(args) > 0:
             print("Error: method does not take arguments")
         else:
-            self.mixcloud.upload()
+            self.mixcloud.upload(self.cuesheet, self.stream)
 
     def do_quit(self, args):
         """ Quit the program """

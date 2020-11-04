@@ -1,23 +1,30 @@
 """ Handle requests involving Mixcloud """
+from flask import Flask, jsonify
+from authlib.integrations.flask_client import OAuth
 import requests
 
 class Mixcloud(object):
     """ Mixcloud-handling Object """
 
-    def __init__(self, token, stream, cuesheet):
-        self.base_url = 'https://api.mixcloud.com'
-        self.cuesheet = cuesheet
-        self.stream = stream
-        self.token = token
+    def __init__(self):
+        self.token = ''
+        self.upload_url = 'https://api.mixcloud.com/upload/'
 
-    def upload(self):
+    def authorize(self):
+        """ Create an authorized session with Mixcloud """
+
+
+    def upload(self, cuesheet, stream):
         """ Upload a mix to Mixcloud """
 
+        cuesheet = cuesheet
+        stream = stream
+
         # Build the upload URL
-        url = self.base_url + "/upload/?access_token=" + self.token
+        url = self.upload_url + "?access_token=" + self.token
 
         payload = {
-            'mp3': self.stream.filename,
-            'name': self.stream.title
+            'mp3': stream.filename,
+            'name': stream.title
         }
         requests.post(url, data=payload)

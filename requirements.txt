@@ -1,2 +1,5 @@
+Authlib
+flask
 pydub
 pyyaml
+requests
