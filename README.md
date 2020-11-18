@@ -18,7 +18,7 @@ docker build . -t 'frozenfoxx/stream_repeater:latest'
 
 ## Docker
 
-To load the interface interactively provide the following:
+To load the application launch the container with your configuration:
 
 ```
 docker run \
@@ -30,18 +30,4 @@ docker run \
     -c /data/stream_repeater.yaml
 ```
 
-To run in batchmode:
-
-```
-To load the interface interactively provide the following:
-
-```
-docker run \
-  -it \
-  --rm \
-  -v [mount point]:/data \
-  -p 5000:5000 \
-  frozenfoxx/stream_repeater:latest \
-    -b \
-    -c /data/stream_repeater.yaml
-```
+Then access [http://localhost:5000](http://localhost:5000).
