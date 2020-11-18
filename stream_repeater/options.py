@@ -12,16 +12,6 @@ class Options(object):
     def __init__(self):
         self.options = {}
 
-    def parse_args(self):
-        """ Parse optional arguments """
-
-        parser = argparse.ArgumentParser()
-        parser.add_argument("-b", "--batchmode", dest="batchmode", default=False, action='store_true', help="run in batchmode")
-        parser.add_argument("-c", "--config", dest="config", default="/etc/stream_repeater/conf/stream_repeater.yaml", type=str, help="path to config file")
-        args = parser.parse_args()
-
-        return args
-
     def load_options(self):
         """ Load options and overrides """
 
@@ -35,3 +25,13 @@ class Options(object):
             sys.exit("Unable to read config file, does it exist?")
 
         return self.options
+
+    def parse_args(self):
+        """ Parse optional arguments """
+
+        parser = argparse.ArgumentParser()
+        parser.add_argument("-i", "--interactive", dest="interactive", default=False, action='store_true', help="run in interactive mode")
+        parser.add_argument("-c", "--config", dest="config", default="/etc/stream_repeater/conf/stream_repeater.yaml", type=str, help="path to config file")
+        args = parser.parse_args()
+
+        return args
