@@ -7,7 +7,7 @@ LABEL maintainer="FrozenFOXX <frozenfoxx@churchoffoxx.net>"
 # Variables
 WORKDIR /app
 ENV APPDIR="/app" \
-  APP_DEPS="ffmpeg"
+  APP_DEPS="build-base libffi-dev openssl-dev python3-dev"
 
 # Install package dependencies
 RUN apk -U add ${APP_DEPS}
@@ -18,6 +18,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy app source
 COPY . .
+
+# Expose listen port
+EXPOSE 5000
 
 # Launch
 ENTRYPOINT [ "/app/scripts/entrypoint.sh" ]

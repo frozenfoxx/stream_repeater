@@ -1,5 +1,5 @@
-Authlib
 flask
 pydub
 pyyaml
 requests
+requests_oauthlib

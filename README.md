@@ -25,6 +25,7 @@ docker run \
   -it \
   --rm \
   -v [mount point]:/data \
+  -p 5000:5000 \
   frozenfoxx/stream_repeater:latest \
     -c /data/stream_repeater.yaml
 ```
@@ -39,6 +40,7 @@ docker run \
   -it \
   --rm \
   -v [mount point]:/data \
+  -p 5000:5000 \
   frozenfoxx/stream_repeater:latest \
     -b \
     -c /data/stream_repeater.yaml
