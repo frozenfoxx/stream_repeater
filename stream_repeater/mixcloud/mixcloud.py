@@ -10,9 +10,8 @@ class Mixcloud(object):
         self.token = ''
         self.upload_url = 'https://api.mixcloud.com/upload/'
 
-    def authorize(self):
+    def authorize(self, oauth):
         """ Create an authorized session with Mixcloud """
-
 
     def upload(self, cuesheet, stream):
         """ Upload a mix to Mixcloud """
