@@ -23,4 +23,5 @@ COPY . .
 EXPOSE 5000
 
 # Launch
-ENTRYPOINT [ "/app/scripts/entrypoint.sh" ]
+ENTRYPOINT [ "python" ]
+CMD [ "python" ]
