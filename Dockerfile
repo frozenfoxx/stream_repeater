@@ -8,7 +8,8 @@ LABEL maintainer="FrozenFOXX <frozenfoxx@churchoffoxx.net>"
 WORKDIR /app
 ENV APPDIR="/app" \
   APP_DEPS="build-base libffi-dev openssl-dev python3-dev" \
-  FLASK_APP="stream_repeater"
+  FLASK_APP="stream_repeater" \
+  FLASK_ENV="development"
 
 # Install package dependencies
 RUN apk -U add ${APP_DEPS}
@@ -24,5 +25,4 @@ COPY . .
 EXPOSE 5000
 
 # Launch
-ENTRYPOINT [ "python" ]
-CMD [ "python" ]
+ENTRYPOINT [ "./scripts/entrypoint.sh" ]
