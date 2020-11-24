@@ -25,7 +25,9 @@ setuptools.setup(
         "License :: Apache License v2",
         "Operating System :: OS Independent",
     ],
-    install_requires=[],
+    install_requires=[
+        'flask'
+    ],
     scripts=[
         "scripts/stream_repeater",
     ],
