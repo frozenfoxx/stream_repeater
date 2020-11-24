@@ -2,9 +2,11 @@
 if __package__:
     from .cuesheet import CueSheet
     from .options import Options
+    from .stream import Stream
 else:
     from cuesheet import CueSheet
     from options import Options
+    from stream import Stream
 from requests_oauthlib import OAuth2Session
 from flask import Flask, request, redirect, session, url_for
 from flask.json import jsonify

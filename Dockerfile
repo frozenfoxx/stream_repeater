@@ -7,7 +7,7 @@ LABEL maintainer="FrozenFOXX <frozenfoxx@churchoffoxx.net>"
 # Variables
 WORKDIR /app
 ENV APPDIR="/app" \
-  APP_DEPS="build-base libffi-dev openssl-dev python3-dev" \
+  APP_DEPS="build-base ffmpeg libffi-dev openssl-dev python3-dev" \
   FLASK_APP="stream_repeater" \
   FLASK_ENV="development"
 
