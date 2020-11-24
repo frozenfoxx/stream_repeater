@@ -30,5 +30,7 @@ stream.convert_to_mp3()
 print("Running server...")
 app = Flask(__name__)
 
+import views
+
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
