@@ -10,27 +10,17 @@ class Options(object):
     """ Option-handling Object """
 
     def __init__(self):
+        self.config_path = "/etc/stream_repeater/conf/stream_repeater.yaml"
         self.options = {}
 
     def load_options(self):
         """ Load options and overrides """
 
-        args = self.parse_args()
-
         print("Reading configuration file...")
         try:
-            with open(args.config) as f:
+            with open(self.config_path) as f:
                 self.options = yaml.load(f, Loader=yaml.FullLoader)
         except Exception as e:
             sys.exit("Unable to read config file, does it exist?")
 
         return self.options
-
-    def parse_args(self):
-        """ Parse optional arguments """
-
-        parser = argparse.ArgumentParser()
-        parser.add_argument("-c", "--config", dest="config", default="/etc/stream_repeater/conf/stream_repeater.yaml", type=str, help="path to config file")
-        args = parser.parse_args()
-
-        return args

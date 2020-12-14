@@ -14,7 +14,6 @@ import importlib
 import os
 import sys
 
-args = Options().parse_args()
 options = Options().load_options()
 
 stream = Stream(options)
@@ -30,7 +29,7 @@ stream.convert_to_mp3()
 print("Running server...")
 app = Flask(__name__)
 
-import views
+import stream_repeater.views
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
