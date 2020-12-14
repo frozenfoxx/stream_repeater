@@ -26,9 +26,6 @@ setuptools.setup(
     install_requires=[
         'flask'
     ],
-    scripts=[
-        "scripts/stream_repeater",
-    ],
     entry_points = {
         "console_scripts": ["stream_repeater=stream_repeater.stream_repeater:main"],
     },
