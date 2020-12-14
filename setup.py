@@ -9,7 +9,7 @@ with open(os.path.join(pkg_dir, "README.md"), "r") as fh:
 
 setuptools.setup(
     name="stream_repeater",
-    version=pkg_vars['__version__'],
+    version='0.1.0',
     author="FrozenFOXX",
     author_email="frozenfoxx@churchoffoxx.net",
     description="Converts and uploads saved streams to remote platforms",
