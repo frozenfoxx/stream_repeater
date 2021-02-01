@@ -1,20 +1,49 @@
 {% extends 'base.html' %}
+{% block title %}Cue-Sheet{% endblock %}
 
 {% block container %}
-<div>
-  <p> Header: <br>
-    {% for key in header %}
-      {{ key }}: {{ header[key] }}<br>
-    {% endfor %}
-  </p>
-  <p> Tracks: <br>
+<section>
+  <h2>Header</h2>
+  <table class="table table-striped table-bordered">
+    <tbody>
+      {% for key in header %}
+        <tr>
+          <th>{{ key }}</th>
+          <td>{{ header[key] }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section>
+  <h2>Tracks</h2>
+  <ul class="list-group">
     {% for idx, val in tracks %}
-      Track No: {{ val.track_number }}<br>
-        Artist: {{ val.performer }} <br>
-        Title: {{ val.title }} <br>
-        Index Time: {{ val.index_time }} <br>
-        Filename: {{ val.track_filename }} <br>
+      <li class="list-group-item">
+        <h3 class="h5">Track No {{ val.track_number }}</h3>
+        <table class="table table-striped table-bordered">
+          <tbody>
+            <tr>
+              <th>Artist</th>
+              <td>{{ val.performer }}</td>
+            </tr>
+            <tr>
+              <th>Title</th>
+              <td>{{ val.title }}</td>
+            </tr>
+            <tr>
+              <th>Index Time</th>
+              <td>{{ val.index_time }}</td>
+            </tr>
+            <tr>
+              <th>Filename</th>
+              <td>{{ val.track_filename }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
     {% endfor %}
-  </p>
-</div>
+  </ul>
+</section>
 {% endblock %}
