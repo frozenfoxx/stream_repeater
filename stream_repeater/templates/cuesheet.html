@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<div>
+  <p> Header: <br>
+    {% for key in header %}
+      {{ key }}: {{ header[key] }}<br>
+    {% endfor %}
+  </p>
+  <p> Tracks: <br>
+    {% for idx, val in tracks %}
+      Track No: {{ val.track_number }}<br>
+        Artist: {{ val.performer }} <br>
+        Title: {{ val.title }} <br>
+        Index Time: {{ val.index_time }} <br>
+        Filename: {{ val.track_filename }} <br>
+    {% endfor %}
+  </p>
+</div>
+{% endblock %}

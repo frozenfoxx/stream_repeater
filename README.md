@@ -25,9 +25,9 @@ docker run \
   -it \
   --rm \
   -v [mount point]:/data \
+  -e CONFIG=[path to mounted config file] \
   -p 5000:5000 \
-  frozenfoxx/stream_repeater:latest \
-    -c /data/stream_repeater.yaml
+  frozenfoxx/stream_repeater:latest
 ```
 
 Then access [http://localhost:5000](http://localhost:5000).
