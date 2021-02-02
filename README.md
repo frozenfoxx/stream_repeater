@@ -2,6 +2,8 @@
 
 Convert, upload, and post audio and video streams to remote services.
 
+Docker Hub: [https://hub.docker.com/r/frozenfoxx/stream_repeater](https://hub.docker.com/r/frozenfoxx/stream_repeater)
+
 # Build
 
 ## Docker
