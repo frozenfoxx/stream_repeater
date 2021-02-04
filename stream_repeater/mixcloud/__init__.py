@@ -1,7 +1,25 @@
 """ Handle requests involving Mixcloud """
-from flask import Flask, jsonify
-from authlib.integrations.flask_client import OAuth
+
+from flask import Blueprint, render_template, abort
+from jinja2 import TemplateNotFound
+from requests_oauthlib import OAuth2Session
 import requests
+
+mixcloud = Blueprint('mixcloud', __name__, template_folder='templates')
+
+@mixcloud.route('/mixcloud/')
+def mixcloud_home():
+    try:
+        return render_template('mixcloud/home.html')
+    except TemplateNotFound:
+        abort(404)
+
+@mixcloud.route('/mixcloud/upload')
+def mixcloud_upload():
+    try:
+        return render_template('mixcloud/upload.html')
+    except TemplateNotFound:
+        abort(404)
 
 class Mixcloud(object):
     """ Mixcloud-handling Object """

@@ -10,9 +10,9 @@ from flask import render_template
 from stream_repeater import app
 
 @app.route('/')
-@app.route('/index')
-def index():
-    return render_template('index.html')
+@app.route('/home')
+def home():
+    return render_template('home.html')
 
 @app.route('/convert/mp3')
 def convert_to_mp3():
