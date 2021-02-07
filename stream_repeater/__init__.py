@@ -9,8 +9,10 @@ import sys
 app = Flask(__name__)
 
 import stream_repeater.views
+from stream_repeater.beatport import beatport
 from stream_repeater.mixcloud import mixcloud
 
+app.register_blueprint(beatport)
 app.register_blueprint(mixcloud)
 
 if __name__ == "__main__":
