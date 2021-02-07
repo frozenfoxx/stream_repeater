@@ -14,11 +14,15 @@ from stream_repeater import app
 def home():
     return render_template('home.html')
 
+@app.route('/convert')
+def convert():
+    return render_template('convert.html')
+
 @app.route('/convert/mp3')
 def convert_to_mp3():
     config = Config().load()
     stream = Stream(config)
-    stream.convert_to_mp3
+    stream.convert_to_mp3()
     return "Stream converted"
 
 @app.route('/cuesheet')

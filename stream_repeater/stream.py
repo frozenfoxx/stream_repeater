@@ -8,6 +8,7 @@ class Stream(object):
     """ Stream-handling Object """
 
     def __init__(self, options):
+        print("Stream initialized")
         self.album = options['stream']['album']
         self.bitrate = options['stream']['bitrate']
         self.cover = options['stream']['cover']
@@ -20,6 +21,8 @@ class Stream(object):
 
     def convert_to_mp3(self):
         """ Convert a recording to MP3 """
+
+        print("Converting to MP3")
 
         stream_file_path = self.datadir + "/" + self.filename
         cover_file_path = self.datadir + "/" + self.cover
@@ -38,4 +41,4 @@ class Stream(object):
             cover=cover_file_path
             )
             
-        print("Converted " + stream_file_path + " to " + mp3_filename)
+        return print("Converted " + stream_file_path + " to " + mp3_filename)

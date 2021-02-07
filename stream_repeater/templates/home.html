@@ -3,9 +3,15 @@
 {% block container %}
 <div>
   <h2>
+    <a href="{{ url_for('convert') }}">convert</a><br>
     <a href="{{ url_for('cuesheet') }}">cuesheet</a><br>
-    <a href="{{ url_for('beatport.beatport_home') }}">Beatport</a>
-    <a href="{{ url_for('mixcloud.mixcloud_home') }}">Mixcloud</a>
+    <a href="{{ url_for('beatport.beatport_home') }}">Beatport</a><br>
+    <a href="{{ url_for('mixcloud.mixcloud_home') }}">Mixcloud</a><br>
+    <a href="{{ url_for('restream.restream_home') }}">Restream</a><br>
+    <a href="{{ url_for('spotify.spotify_home') }}">Spotify</a><br>
+    <a href="{{ url_for('telegram.telegram_home') }}">Telegram</a><br>
+    <a href="{{ url_for('twitter.twitter_home') }}">Twitter</a><br>
+    <a href="{{ url_for('youtube.youtube_home') }}">YouTube</a>
   </h2>
 </div>
 {% endblock %}
