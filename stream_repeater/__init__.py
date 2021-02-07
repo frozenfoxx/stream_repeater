@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+if __package__:
+    from .config import Config
+else:
+    from config import Config
 from flask import Flask, request, redirect, session, url_for
 from flask.json import jsonify
 import importlib
@@ -24,6 +28,8 @@ app.register_blueprint(spotify)
 app.register_blueprint(telegram)
 app.register_blueprint(twitter)
 app.register_blueprint(youtube)
+
+app.config['CONFIG'] = Config().load()
 
 if __name__ == "__main__":
     app.run()

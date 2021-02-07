@@ -1,13 +1,13 @@
 --- 
 accounts:
-  bandcamp.com: 
+  bandcamp: 
     password: passwordhere
     token: tokenhere
     username: usernamehere
-  mixcloud.com:
+  mixcloud:
     client_id: client_id_here
     client_secret: client_secret_here
-  spotify.com: 
+  spotify: 
     password: passwordhere
     token: tokenhere
     username: usernamehere
@@ -17,10 +17,10 @@ stream:
   album: "Streams"
   bitrate: "320k"
   cover: cover.jpg
-  cuesheet: "Cue Sheet.cue"
-  filename: filehere.wav
+  cuesheet: 'Cue Sheet.cue'
+  filename: 'filehere.wav'
   performer: "Various Artists"
   tags:
-    - 'podcast'
-    - 'stream'
+    - podcast
+    - stream
   title: "Song Title"

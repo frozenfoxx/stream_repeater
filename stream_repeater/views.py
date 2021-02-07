@@ -20,15 +20,13 @@ def convert():
 
 @app.route('/convert/mp3')
 def convert_to_mp3():
-    config = Config().load()
-    stream = Stream(config)
+    stream = Stream(app.config['CONFIG'])
     stream.convert_to_mp3()
     return "Stream converted"
 
 @app.route('/cuesheet')
 def cuesheet():
-    config = Config().load()
-    cuesheet = CueSheet(config)
+    cuesheet = CueSheet(app.config['CONFIG'])
     cuesheet.load()
 
     header = cuesheet.header
