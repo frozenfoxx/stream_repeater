@@ -13,6 +13,7 @@ accounts:
     username: usernamehere
 system:
   datadir: /data
+  fqdn: domain.net
 stream:
   album: "Streams"
   bitrate: "320k"
