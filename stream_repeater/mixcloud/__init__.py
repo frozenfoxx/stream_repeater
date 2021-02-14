@@ -22,8 +22,9 @@ def mixcloud_home():
 @mixcloud.route('/mixcloud/authorize')
 def mixcloud_authorize():
     client_id = current_app.config['CONFIG']['accounts']['mixcloud']['client_id']
+    redirect_uri = "http://" + current_app.config['CONFIG']['system']['fqdn'] + "/mixcloud/callback"
 
-    mixcloud_session = OAuth2Session(client_id)
+    mixcloud_session = OAuth2Session(client_id, redirect_uri=redirect_uri)
     authorization_url, state = mixcloud_session.authorization_url(authorization_base_url)
 
     session['oauth_state'] = state
