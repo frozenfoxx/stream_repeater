@@ -29,7 +29,11 @@ app.register_blueprint(telegram)
 app.register_blueprint(twitter)
 app.register_blueprint(youtube)
 
+# This allows us to use a plain HTTP callback
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = "1"
+
 app.config['CONFIG'] = Config().load()
+app.secret_key = os.urandom(24)
 
 if __name__ == "__main__":
     app.run()
