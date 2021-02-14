@@ -9,22 +9,20 @@ import os
 mixcloud = Blueprint('mixcloud', __name__, template_folder='templates')
 
 authorization_base_url = 'https://www.mixcloud.com/oauth/authorize'
+profile_url = 'https://api.mixcloud.com/me/'
 token_url = 'https://www.mixcloud.com/oauth/access_token'
-
-client_id = ""
-client_secret = ""
-redirect_uri = ""
 
 @mixcloud.route('/mixcloud/')
 def mixcloud_home():
     try:
-        mixcloud_setup()
         return render_template('mixcloud/home.html')
     except TemplateNotFound:
         abort(404)
 
 @mixcloud.route('/mixcloud/authorize')
 def mixcloud_authorize():
+    client_id = current_app.config['CONFIG']['accounts']['mixcloud']['client_id']
+
     mixcloud_session = OAuth2Session(client_id)
     authorization_url, state = mixcloud_session.authorization_url(authorization_base_url)
 
@@ -33,6 +31,9 @@ def mixcloud_authorize():
 
 @mixcloud.route('/mixcloud/callback', methods=["GET"])
 def mixcloud_callback():
+    client_id = current_app.config['CONFIG']['accounts']['mixcloud']['client_id']
+    client_secret = current_app.config['CONFIG']['accounts']['mixcloud']['client_secret']
+
     mixcloud_session = OAuth2Session(client_id, state=session['oauth_state'])
     token = mixcloud_session.fetch_token(token_url, client_secret=client_secret,
                                authorization_response=request.url)
@@ -43,17 +44,24 @@ def mixcloud_callback():
 
 @mixcloud.route("/mixcloud/profile", methods=["GET"])
 def mixcloud_profile():
-    github = OAuth2Session(client_id, token=session['oauth_token'])
-    return jsonify(github.get('https://api.mixcloud.com/user').json())
+    client_id = current_app.config['CONFIG']['accounts']['mixcloud']['client_id']
+
+    mixcloud_session = OAuth2Session(client_id, token=session['oauth_token'])
+    return jsonify(mixcloud_session.get(profile_url).json())
 
 @mixcloud.route('/mixcloud/upload')
 def mixcloud_upload():
+    client_id = current_app.config['CONFIG']['accounts']['mixcloud']['client_id']
+    client_secret = current_app.config['CONFIG']['accounts']['mixcloud']['client_secret']
+
     try:
         return render_template('mixcloud/upload.html')
     except TemplateNotFound:
         abort(404)
 
 def mixcloud_setup():
+    """ Set variables for the blueprint """
+
     client_id = current_app.config['CONFIG']['accounts']['mixcloud']['client_id']
     client_secret = current_app.config['CONFIG']['accounts']['mixcloud']['client_secret']
     redirect_uri = "http://" + current_app.config['CONFIG']['system']['fqdn'] + "/mixcloud/callback"
