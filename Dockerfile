@@ -12,7 +12,8 @@ ENV APPDIR="/app" \
   FLASK_APP="stream_repeater" \
   FLASK_ENV="development" \
   FLASK_RUN_HOST="0.0.0.0" \
-  FLASK_RUN_PORT="5000"
+  FLASK_RUN_PORT="5000" \
+  SECRET_KEY=''
 
 # Install package dependencies
 RUN apk -U add ${APP_DEPS}

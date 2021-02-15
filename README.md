@@ -32,4 +32,4 @@ docker run \
   frozenfoxx/stream_repeater:latest
 ```
 
-Then access [http://localhost:5000](http://localhost:5000).
+Then access [http://localhost:5000](http://localhost:5000). If a `SECRET_KEY` is not supplied one will be generated.
