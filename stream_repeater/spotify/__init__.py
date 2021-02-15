@@ -7,14 +7,14 @@ import requests
 
 spotify = Blueprint('spotify', __name__, template_folder='templates')
 
-@spotify.route('/spotify/')
+@spotify.route('/')
 def spotify_home():
     try:
         return render_template('spotify/home.html')
     except TemplateNotFound:
         abort(404)
 
-@spotify.route('/spotify/upload')
+@spotify.route('/upload')
 def spotify_upload():
     try:
         return render_template('spotify/upload.html')

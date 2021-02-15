@@ -7,14 +7,14 @@ import requests
 
 youtube = Blueprint('youtube', __name__, template_folder='templates')
 
-@youtube.route('/youtube/')
+@youtube.route('/')
 def youtube_home():
     try:
         return render_template('youtube/home.html')
     except TemplateNotFound:
         abort(404)
 
-@youtube.route('/youtube/upload')
+@youtube.route('/upload')
 def youtube_upload():
     try:
         return render_template('youtube/upload.html')

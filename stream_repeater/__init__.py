@@ -21,13 +21,13 @@ from stream_repeater.telegram import telegram
 from stream_repeater.twitter import twitter
 from stream_repeater.youtube import youtube
 
-app.register_blueprint(beatport)
-app.register_blueprint(mixcloud)
-app.register_blueprint(restream)
-app.register_blueprint(spotify)
-app.register_blueprint(telegram)
-app.register_blueprint(twitter)
-app.register_blueprint(youtube)
+app.register_blueprint(beatport, url_prefix='/beatport')
+app.register_blueprint(mixcloud, url_prefix='/mixcloud')
+app.register_blueprint(restream, url_prefix='/restream')
+app.register_blueprint(spotify, url_prefix='/spotify')
+app.register_blueprint(telegram, url_prefix='/telegram')
+app.register_blueprint(twitter, url_prefix='/twitter')
+app.register_blueprint(youtube, url_prefix='/youtube')
 
 # This allows us to use a plain HTTP callback
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = "1"

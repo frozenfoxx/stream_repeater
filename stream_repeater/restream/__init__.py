@@ -7,14 +7,14 @@ import requests
 
 restream = Blueprint('restream', __name__, template_folder='templates')
 
-@restream.route('/restream/')
+@restream.route('/')
 def restream_home():
     try:
         return render_template('restream/home.html')
     except TemplateNotFound:
         abort(404)
 
-@restream.route('/restream/upload')
+@restream.route('/upload')
 def restream_upload():
     try:
         return render_template('restream/upload.html')

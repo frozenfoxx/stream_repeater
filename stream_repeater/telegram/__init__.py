@@ -7,7 +7,7 @@ import requests
 
 telegram = Blueprint('telegram', __name__, template_folder='templates')
 
-@telegram.route('/telegram/')
+@telegram.route('/')
 def telegram_home():
     try:
         return render_template('telegram/home.html')
