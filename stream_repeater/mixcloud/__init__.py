@@ -26,7 +26,8 @@ def mixcloud_authorize():
 
     mixcloud_session = OAuth2Session(client_id, redirect_uri=redirect_uri)
     authorization_url, state = mixcloud_session.authorization_url(authorization_base_url)
-
+    
+    # State is used to prevent CSRF, keep this for later.
     session['oauth_state'] = state
 
     return redirect(authorization_url)
@@ -37,8 +38,7 @@ def mixcloud_callback():
     client_secret = current_app.config['CONFIG']['accounts']['mixcloud']['client_secret']
 
     mixcloud_session = OAuth2Session(client_id, state=session['oauth_state'])
-    token = mixcloud_session.fetch_token(token_url, client_secret=client_secret,
-                               authorization_response=request.url)
+    token = mixcloud_session.fetch_token(token_url, client_secret=client_secret, authorization_response=request.url)
 
     session['oauth_token'] = token
 
