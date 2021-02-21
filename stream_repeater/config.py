@@ -1,24 +1,30 @@
 """ Configuration handling """
 
-from os import environ
-import io
+if __package__:
+    from .options import Options
+else:
+    from options import Options
+from os import environ, path
 import sys
 import yaml
 
-class Config(object):
-    """ Option-handling Object """
+class Config:
+    """ Base config """
 
-    def __init__(self):
-        self.options = {}
+    # This allows us to use a plain HTTP callback
+    OAUTHLIB_INSECURE_TRANSPORT = "1"
+    SECRET_KEY = environ.get('SECRET_KEY')
 
-    def load(self):
-        """ Load config """
+class DevConfig(Config):
+    FLASK_ENV = 'development'
+    options = Options()
+    CONFIG = options.load()
+    DEBUG = True
+    TESTING = True
 
-        print("Reading configuration file...")
-        try:
-            with open(environ['CONFIG']) as f:
-                self.options = yaml.load(f, Loader=yaml.FullLoader)
-        except:
-            sys.exit("Unable to read config file, does it exist?")
-
-        return self.options
+class ProdConfig(Config):
+    FLASK_ENV = 'production'
+    options = Options()
+    CONFIG = options.load()
+    DEBUG = False
+    TESTING = False

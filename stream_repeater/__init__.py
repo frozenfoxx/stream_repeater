@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
 
-if __package__:
-    from .config import Config
-else:
-    from config import Config
 from flask import Flask, request, redirect, session, url_for
 from flask.json import jsonify
 from os import environ
@@ -12,11 +8,10 @@ import sys
 
 app = Flask(__name__)
 
-# This allows us to use a plain HTTP callback
-environ['OAUTHLIB_INSECURE_TRANSPORT'] = "1"
-
-app.config['CONFIG'] = Config().load()
-app.config['SECRET_KEY'] = environ['SECRET_KEY']
+if app.config["ENV"] == "production":
+    app.config.from_object("stream_repeater.config.ProdConfig")
+else:
+    app.config.from_object("stream_repeater.config.DevConfig")
 
 import stream_repeater.views
 from stream_repeater.beatport import beatport
