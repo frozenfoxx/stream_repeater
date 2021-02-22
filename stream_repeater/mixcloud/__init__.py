@@ -37,7 +37,8 @@ def mixcloud_callback():
     client_secret = current_app.config['CONFIG']['accounts']['mixcloud']['client_secret']
 
     mixcloud_session = OAuth2Session(client_id, state=session['oauth_state'])
-    token = mixcloud_session.fetch_token(token_url, client_secret=client_secret, authorization_response=request.url)
+    #token = mixcloud_session.fetch_token(token_url, client_secret=client_secret, authorization_response=request.url)
+    token = mixcloud_session.fetch_token(token_url, client_secret=client_secret, code=request.args['code'])
 
     session['oauth_token'] = token
 
