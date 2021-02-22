@@ -22,14 +22,13 @@ def mixcloud_home():
 @mixcloud.route('/authorize')
 def mixcloud_authorize():
     client_id = current_app.config['CONFIG']['accounts']['mixcloud']['client_id']
-    redirect_uri = "http://" + current_app.config['CONFIG']['system']['fqdn'] + "/mixcloud/callback"
+    redirect_uri= url_for('.mixcloud_callback', _external=True)
 
     mixcloud_session = OAuth2Session(client_id, redirect_uri=redirect_uri)
     authorization_url, state = mixcloud_session.authorization_url(authorization_base_url)
-    
+
     # State is used to prevent CSRF, keep this for later.
     session['oauth_state'] = state
-
     return redirect(authorization_url)
 
 @mixcloud.route('/callback', methods=["GET"])
@@ -42,7 +41,7 @@ def mixcloud_callback():
 
     session['oauth_token'] = token
 
-    return redirect(url_for('.profile'))
+    return redirect(url_for('.mixcloud_profile'))
 
 @mixcloud.route('/profile', methods=["GET"])
 def mixcloud_profile():
@@ -55,7 +54,6 @@ def mixcloud_profile():
 def mixcloud_upload():
     client_id = current_app.config['CONFIG']['accounts']['mixcloud']['client_id']
     client_secret = current_app.config['CONFIG']['accounts']['mixcloud']['client_secret']
-    redirect_uri = "http://" + current_app.config['CONFIG']['system']['fqdn'] + "/mixcloud/callback"
 
     try:
         return render_template('mixcloud/upload.html')

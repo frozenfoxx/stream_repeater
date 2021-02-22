@@ -12,7 +12,7 @@ class Config:
     """ Base config """
 
     # This allows us to use a plain HTTP callback
-    OAUTHLIB_INSECURE_TRANSPORT = "1"
+    environ['OAUTHLIB_INSECURE_TRANSPORT'] = "1"
     SECRET_KEY = environ.get('SECRET_KEY')
 
 class DevConfig(Config):

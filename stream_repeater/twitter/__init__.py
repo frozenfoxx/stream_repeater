@@ -22,7 +22,7 @@ def twitter_home():
 @twitter.route('/authorize')
 def twitter_authorize():
     client_id = current_app.config['CONFIG']['accounts']['twitter']['client_id']
-    redirect_uri = "http://" + current_app.config['CONFIG']['system']['fqdn'] + "/twitter/callback"
+    redirect_uri= url_for('.twitter_callback', _external=True)
 
     twitter_session = OAuth2Session(client_id, redirect_uri=redirect_uri)
     authorization_url, state = twitter_session.authorization_url(authorization_base_url)
@@ -42,7 +42,7 @@ def twitter_callback():
 
     session['oauth_token'] = token
 
-    return redirect(url_for('.profile'))
+    return redirect(url_for('.twitter_profile'))
 
 @twitter.route('/profile', methods=["GET"])
 def twitter_profile():
@@ -55,7 +55,6 @@ def twitter_profile():
 def twitter_upload():
     client_id = current_app.config['CONFIG']['accounts']['twitter']['client_id']
     client_secret = current_app.config['CONFIG']['accounts']['twitter']['client_secret']
-    redirect_uri = "http://" + current_app.config['CONFIG']['system']['fqdn'] + "/twitter/callback"
 
     try:
         return render_template('twitter/upload.html')
