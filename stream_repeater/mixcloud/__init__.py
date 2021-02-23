@@ -5,6 +5,7 @@ from flask.json import jsonify
 from jinja2 import TemplateNotFound
 from requests_oauthlib import OAuth2Session
 import os
+import requests
 
 mixcloud = Blueprint('mixcloud', __name__, template_folder='templates')
 
@@ -35,10 +36,10 @@ def mixcloud_authorize():
 def mixcloud_callback():
     client_id = current_app.config['CONFIG']['accounts']['mixcloud']['client_id']
     client_secret = current_app.config['CONFIG']['accounts']['mixcloud']['client_secret']
+    redirect_uri= url_for('.mixcloud_callback', _external=True)
 
-    mixcloud_session = OAuth2Session(client_id, state=session['oauth_state'])
-    #token = mixcloud_session.fetch_token(token_url, client_secret=client_secret, authorization_response=request.url)
-    token = mixcloud_session.fetch_token(token_url, client_secret=client_secret, code=request.args['code'])
+    mixcloud_session = OAuth2Session(client_id, redirect_uri=redirect_uri, state=session['oauth_state'])
+    token = mixcloud_session.fetch_token(token_url, client_secret=client_secret, include_client_id=True, code=request.args['code'])
 
     session['oauth_token'] = token
 
@@ -46,10 +47,19 @@ def mixcloud_callback():
 
 @mixcloud.route('/profile', methods=["GET"])
 def mixcloud_profile():
-    client_id = current_app.config['CONFIG']['accounts']['mixcloud']['client_id']
+    """ Display the authorized user's profile """
 
-    mixcloud_session = OAuth2Session(client_id, token=session['oauth_token'])
-    return jsonify(mixcloud_session.get(profile_url).json())
+    # Note: We would normally do this but Mixcloud requires specific parameters
+    #client_id = current_app.config['CONFIG']['accounts']['mixcloud']['client_id']
+    #mixcloud_session = OAuth2Session(client_id, token=session['oauth_token'])
+    #return jsonify(mixcloud_session.get(profile_url))
+
+    params = {
+        "access_token": session['oauth_token']['access_token']
+    }
+    response = requests.get(profile_url, params)
+
+    return redirect(response.url)
 
 @mixcloud.route('/upload')
 def mixcloud_upload():
