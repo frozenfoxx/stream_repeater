@@ -12,6 +12,7 @@ mixcloud = Blueprint('mixcloud', __name__, template_folder='templates')
 authorization_base_url = 'https://www.mixcloud.com/oauth/authorize'
 profile_url = 'https://api.mixcloud.com/me/'
 token_url = 'https://www.mixcloud.com/oauth/access_token'
+upload_url = 'https://api.mixcloud.com/upload/'
 
 @mixcloud.route('/')
 def mixcloud_home():
@@ -43,7 +44,7 @@ def mixcloud_callback():
 
     session['oauth_token'] = token
 
-    return redirect(url_for('.mixcloud_profile'))
+    return redirect(url_for('.mixcloud_home'))
 
 @mixcloud.route('/profile', methods=["GET"])
 def mixcloud_profile():
@@ -63,10 +64,14 @@ def mixcloud_profile():
 
 @mixcloud.route('/upload')
 def mixcloud_upload():
-    client_id = current_app.config['CONFIG']['accounts']['mixcloud']['client_id']
-    client_secret = current_app.config['CONFIG']['accounts']['mixcloud']['client_secret']
+    """ Upload a mix """
 
-    try:
-        return render_template('mixcloud/upload.html')
-    except TemplateNotFound:
-        abort(404)
+    files = {
+
+    }
+    params = {
+        "access_token": session['oauth_token']['access_token']
+    }
+    response = requests.post(upload_url, params)
+
+    return redirect(response.url)
