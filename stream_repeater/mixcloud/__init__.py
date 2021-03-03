@@ -14,10 +14,12 @@ profile_url = 'https://api.mixcloud.com/me/'
 token_url = 'https://www.mixcloud.com/oauth/access_token'
 upload_url = 'https://api.mixcloud.com/upload/'
 
+authorized = False
+
 @mixcloud.route('/')
 def mixcloud_home():
     try:
-        return render_template('mixcloud/home.html')
+        return render_template('mixcloud/home.html', authorized=authorized)
     except TemplateNotFound:
         abort(404)
 
@@ -43,6 +45,9 @@ def mixcloud_callback():
     token = mixcloud_session.fetch_token(token_url, client_secret=client_secret, include_client_id=True, code=request.args['code'])
 
     session['oauth_token'] = token
+    
+    # Now that we have a session this will let the index show we're authorized
+    authorized = True
 
     return redirect(url_for('.mixcloud_home'))
 
@@ -67,11 +72,13 @@ def mixcloud_upload():
     """ Upload a mix """
 
     files = {
-
+        "mp3": "",
+        "name": "",
+        "picture": ""
     }
     params = {
         "access_token": session['oauth_token']['access_token']
     }
-    response = requests.post(upload_url, params)
+    response = requests.post(upload_url, params, files=files)
 
     return redirect(response.url)
