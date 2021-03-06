@@ -63,7 +63,7 @@ def mixcloud_profile():
     params = {
         "access_token": session['oauth_token']['access_token']
     }
-    response = requests.get(profile_url, params)
+    response = requests.get(profile_url, params=params)
 
     return redirect(response.url)
 
@@ -72,13 +72,13 @@ def mixcloud_upload():
     """ Upload a mix """
 
     files = {
-        "mp3": "",
-        "name": "",
-        "picture": ""
+        "mp3": current_app.stream.mp3_path,
+        "name": current_app.stream.title,
+        "picture": current_app.stream.cover_path
     }
     params = {
         "access_token": session['oauth_token']['access_token']
     }
-    response = requests.post(upload_url, params, files=files)
+    response = requests.post(upload_url, params=params, files=files)
 
     return redirect(response.url)
