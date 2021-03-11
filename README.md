@@ -1,5 +1,7 @@
 # stream_repeater
 
+[![Build Status](https://cloud.drone.io/api/badges/frozenfoxx/stream_repeater/status.svg?ref=refs/heads/main)](https://cloud.drone.io/frozenfoxx/stream_repeater)
+
 Convert, upload, and post audio and video streams to remote services.
 
 Docker Hub: [https://hub.docker.com/r/frozenfoxx/stream_repeater](https://hub.docker.com/r/frozenfoxx/stream_repeater)
