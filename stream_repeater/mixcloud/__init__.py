@@ -72,19 +72,22 @@ def mixcloud_upload():
     """ Upload a mix """
 
     data = {
-        "name": current_app.stream.title,
-        "unlisted": True
+        "name": current_app.stream.title
     }
 
     # Build the tracklist headers and values
-    for key, val in enumerate(current_app.stream.tracks):
+    for idx, val in enumerate(current_app.cuesheet.tracks):
         artistKey = "sections-" + val.track_number + "-artist"
         songKey = "sections-" + val.track_number + "-song"
         timeKey = "sections-" + val.track_number + "-start_time"
-
         data[artistKey] = val.performer
         data[songKey] = val.title
         data[timeKey] = val.index_time
+
+    # Build the tags
+    for idx, tag in enumerate(current_app.stream.tags):
+        tagKey = "tags-" + str(idx) + "-tag"
+        data[tagKey] = tag
 
     files = {
         "mp3": current_app.stream.mp3_path,
@@ -93,6 +96,24 @@ def mixcloud_upload():
     params = {
         "access_token": session['oauth_token']['access_token']
     }
+
     response = requests.post(upload_url, data=data, params=params, files=files)
+
+    try:
+        result = response.json()
+    except:
+        print("Error uploading to Mixcloud")
+        print(response.text)
+    else:
+        for key in result:
+            if key == 'error':
+                print('  Failure detected. Reponse text is as follows:')
+                print(response.text)
+            elif key == 'result':
+                if result['result']['success'] == True: # These are Boolean, not strings
+                    print('Upload is available at: https://mixcloud.com' + result['result']['key'])
+                else:
+                    print('  Failure detected. Reponse text is as follows:')
+                    print(response.text)
 
     return redirect(response.url)
