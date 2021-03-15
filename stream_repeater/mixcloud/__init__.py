@@ -71,14 +71,28 @@ def mixcloud_profile():
 def mixcloud_upload():
     """ Upload a mix """
 
+    data = {
+        "name": current_app.stream.title,
+        "unlisted": True
+    }
+
+    # Build the tracklist headers and values
+    for key, val in enumerate(current_app.stream.tracks):
+        artistKey = "sections-" + val.track_number + "-artist"
+        songKey = "sections-" + val.track_number + "-song"
+        timeKey = "sections-" + val.track_number + "-start_time"
+
+        data[artistKey] = val.performer
+        data[songKey] = val.title
+        data[timeKey] = val.index_time
+
     files = {
         "mp3": current_app.stream.mp3_path,
-        "name": current_app.stream.title,
         "picture": current_app.stream.cover_path
     }
     params = {
         "access_token": session['oauth_token']['access_token']
     }
-    response = requests.post(upload_url, params=params, files=files)
+    response = requests.post(upload_url, data=data, params=params, files=files)
 
     return redirect(response.url)
