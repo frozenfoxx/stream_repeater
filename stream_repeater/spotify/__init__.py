@@ -1,6 +1,7 @@
 """ Handle requests involving spotify """
 
 from flask import Blueprint, current_app, render_template, abort
+from flask.json import jsonify
 from jinja2 import TemplateNotFound
 from requests_oauthlib import OAuth2Session
 import requests
