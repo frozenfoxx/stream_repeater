@@ -19,7 +19,7 @@ authorized = False
 @mixcloud.route('/')
 def mixcloud_home():
     try:
-        return render_template('mixcloud/home.html', authorized=authorized)
+        return render_template('mixcloud/home.html', authorized=mixcloud_status())
     except TemplateNotFound:
         abort(404)
 
@@ -45,9 +45,6 @@ def mixcloud_callback():
     token = mixcloud_session.fetch_token(token_url, client_secret=client_secret, include_client_id=True, code=request.args['code'])
 
     session['oauth_token'] = token
-    
-    # Now that we have a session this will let the index show we're authorized
-    authorized = True
 
     return redirect(url_for('.mixcloud_home'))
 
@@ -66,6 +63,18 @@ def mixcloud_profile():
     response = requests.get(profile_url, params=params)
 
     return redirect(response.url)
+
+@mixcloud.route('/status', methods=["GET"])
+def mixcloud_status():
+    """ Check the status of the Mixcloud session """
+
+    if 'oauth_token' in session:
+        if 'access_token' in session['oauth_token']:
+            return True
+        else:
+            return False
+    else:
+        return False
 
 @mixcloud.route('/upload')
 def mixcloud_upload():

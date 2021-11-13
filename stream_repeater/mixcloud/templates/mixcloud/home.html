@@ -9,7 +9,7 @@
     <a href="{{ url_for('mixcloud.mixcloud_authorize') }}">Authorize</a><br>
     <a href="{{ url_for('mixcloud.mixcloud_profile') }}">Profile</a><br>
     <a href="{{ url_for('mixcloud.mixcloud_upload') }}">Upload</a><br>
-    {% if authorized is sameas true %}
+    {% if authorized %}
       You are authorized<br>
     {% else %}
       You are not authorized<br>
