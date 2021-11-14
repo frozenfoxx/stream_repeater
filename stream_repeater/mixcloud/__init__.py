@@ -98,18 +98,20 @@ def mixcloud_upload():
         tagKey = "tags-" + str(idx) + "-tag"
         data[tagKey] = tag
 
+    # Check for imagerestrictions
+    if current_app.stream.cover:
+        data["picture"] = current_app.stream.cover
+
     # Check for MP3 conversion
     if not current_app.stream.mp3_path:
         return "Stream not yet converted, please select 'Stream > convert' first"
 
-    #FIXME: Check for banner image restrictions
-    #if not current_app.stream.banner_path:
-    #    return "Stream does not have a banner image, please select 'Stream' first"
-    
+    # File to upload
     files = {
         "mp3": current_app.stream.mp3_path
-        #FIXME "picture": current_app.stream.banner_path
     }
+
+    # Authentication parameters
     params = {
         "access_token": session['oauth_token']['access_token']
     }

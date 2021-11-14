@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<div>
+  <h2>
+    Stream Conversion Status
+  </h2>
+  <p>
+    {% if success %}
+      Conversion successful.<br>
+    {% else %}
+      Conversion failed.<br>
+    {% endif %}
+  </p>
+</div>
+{% endblock %}

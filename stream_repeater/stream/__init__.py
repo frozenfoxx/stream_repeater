@@ -30,7 +30,10 @@ def stream_home():
 @stream.route('/convert/mp3')
 def stream_convert_to_mp3():
     current_app.stream.convert_to_mp3()
-    return "Stream converted"
+    try:
+        return render_template('stream/convert.html', success=True)
+    except TemplateNotFound:
+        abort(404)
 
 @stream.route('/cuesheet')
 def stream_cuesheet():
