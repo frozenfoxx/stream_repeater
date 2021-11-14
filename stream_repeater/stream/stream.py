@@ -11,6 +11,7 @@ class Stream(object):
         print("Stream initialized")
         self.album = options['stream']['album']
         self.bitrate = options['stream']['bitrate']
+        self.banner = options['stream']['banner']
         self.cover = options['stream']['cover']
         self.cuesheet = options['stream']['cuesheet']
         self.datadir = options['system']['datadir']
@@ -19,6 +20,7 @@ class Stream(object):
         self.tags = options['stream']['tags']
         self.title = options['stream']['title']
 
+        self.banner_path = self.datadir + "/" + self.banner
         self.cover_path = self.datadir + "/" + self.cover
         self.file_path = self.datadir + "/" + self.filename
         self.mp3_path = ''
