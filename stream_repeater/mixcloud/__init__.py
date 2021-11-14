@@ -124,13 +124,10 @@ def mixcloud_upload():
     else:
         for key in result:
             if key == 'error':
-                print('  Failure detected. Reponse text is as follows:')
-                print(response.text)
+                return render_template('mixcloud/upload.html', success=False, text=response.text)
             elif key == 'result':
                 if result['result']['success'] == True: # These are Boolean, not strings
-                    print('Upload is available at: https://mixcloud.com' + result['result']['key'])
+                    result_text = "https://mixcloud.com" + result['result']['key']
+                    return render_template('mixcloud/upload.html', success=True, text=result_text)
                 else:
-                    print('  Failure detected. Reponse text is as follows:')
-                    print(response.text)
-
-    return redirect(response.url)
+                    return render_template('mixcloud/upload.html', success=False, text=response.text)

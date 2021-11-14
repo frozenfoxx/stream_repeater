@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block container %}
+<div>
+  <h2>
+    Mixcloud Upload Status
+  </h2>
+  <p>
+    {% if success %}
+      Upload successful. Your mix is available at <a href="{{ text }}">{{ text }}</a><br>
+    {% else %}
+      Failure detected. Reponse text is as follows:<br>
+      {{ text }}
+    {% endif %}
+  </p>
+</div>
+{% endblock %}
