@@ -80,9 +80,13 @@ def mixcloud_status():
 def mixcloud_upload():
     """ Upload a mix """
 
-    data = {
-        "name": current_app.stream.title
-    }
+    # Set dictionaries
+    data = {}
+    files = {}
+    params = {}
+
+    # Set the title
+    data["name"] = current_app.stream.title
 
     # Build the tracklist headers and values
     for idx, val in enumerate(current_app.cuesheet.tracks):
@@ -98,23 +102,18 @@ def mixcloud_upload():
         tagKey = "tags-" + str(idx) + "-tag"
         data[tagKey] = tag
 
-    # Check for imagerestrictions
-    if current_app.stream.cover:
-        data["picture"] = current_app.stream.cover
+    # Check for image
+    if current_app.stream.cover_path:
+        files["picture"] = open(current_app.stream.cover_path, 'rb')
 
     # Check for MP3 conversion
     if not current_app.stream.mp3_path:
         return "Stream not yet converted, please select 'Stream > convert' first"
-
-    # File to upload
-    files = {
-        "mp3": current_app.stream.mp3_path
-    }
+    else:
+        files["mp3"] = open(current_app.stream.mp3_path, 'rb')
 
     # Authentication parameters
-    params = {
-        "access_token": session['oauth_token']['access_token']
-    }
+    params["access_token"] = session['oauth_token']['access_token']
 
     response = requests.post(upload_url, data=data, params=params, files=files)
 
