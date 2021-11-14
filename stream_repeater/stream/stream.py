@@ -43,5 +43,5 @@ class Stream(object):
                 },
             cover=self.cover_path
             )
-            
+
         return print("Converted " + self.file_path + " to " + self.mp3_path)
