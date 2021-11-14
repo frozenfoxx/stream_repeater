@@ -102,13 +102,13 @@ def mixcloud_upload():
     if not current_app.stream.mp3_path:
         return "Stream not yet converted, please select 'Stream > convert' first"
 
-    # Check for banner image restrictions
-    if not current_app.stream.banner_path:
-        return "Stream does not have a banner image, please select 'Stream' first"
+    #FIXME: Check for banner image restrictions
+    #if not current_app.stream.banner_path:
+    #    return "Stream does not have a banner image, please select 'Stream' first"
     
     files = {
-        "mp3": current_app.stream.mp3_path,
-        "picture": current_app.stream.banner_path
+        "mp3": current_app.stream.mp3_path
+        #FIXME "picture": current_app.stream.banner_path
     }
     params = {
         "access_token": session['oauth_token']['access_token']
