@@ -4,4 +4,3 @@ pyyaml
 requests
 requests_oauthlib
 #sqlite3
-wand
