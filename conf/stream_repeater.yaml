@@ -1,16 +1,11 @@
 --- 
 accounts:
-  bandcamp: 
-    password: passwordhere
-    token: tokenhere
-    username: usernamehere
   mixcloud:
     client_id: client_id_here
     client_secret: client_secret_here
   spotify: 
-    password: passwordhere
-    token: tokenhere
-    username: usernamehere
+    client_id: client_id_here
+    client_secret: client_secret_here
 system:
   datadir: /data
 stream:
@@ -19,6 +14,7 @@ stream:
   cover: cover.jpg
   cuesheet: 'Cue Sheet.cue'
   filename: 'filehere.wav'
+  historysheet: 'History Sheet.txt'
   performer: "Various Artists"
   tags:
     - podcast
