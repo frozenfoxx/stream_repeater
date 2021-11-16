@@ -4,8 +4,7 @@ if __package__:
     from .track import Track
 else:
     from track import Track
-import os, sys, re
-import datetime, time, math
+import datetime, re, time
 
 class CueSheet(object):
     """ CUE sheet-handling Object """
@@ -122,11 +121,6 @@ class CueSheet(object):
     @staticmethod
     def unquote(t):
         return tuple([CueSheet.dqstrip(s.strip()) for s in t])
-
-    def csv(self):
-        """ Convert a CUE sheet to CSV """
-
-        print("CSV conversion not supported yet")
 
     def dump(self):
         """ Dump the loaded CUE sheet """
