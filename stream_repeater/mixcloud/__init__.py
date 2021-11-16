@@ -81,9 +81,9 @@ def mixcloud_upload():
     """ Upload a mix """
 
     # Set dictionaries
-    data = {}
-    files = {}
-    params = {}
+    data = dict()
+    files = dict()
+    params = dict()
 
     # Set the title
     data["name"] = current_app.stream.title

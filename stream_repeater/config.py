@@ -5,7 +5,6 @@ if __package__:
 else:
     from options import Options
 from os import environ, path
-import sys
 import yaml
 
 class Config:
