@@ -3,5 +3,6 @@ pydub
 pyyaml
 requests
 requests_oauthlib
+spotipy
 #sqlite3
 wand
