@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}History-Sheet{% endblock %}
+
+{% block container %}
+<section>
+  <h2>Tracks</h2>
+  <ul class="list-group">
+    {% for idx, val in tracks %}
+      <li class="list-group-item">
+        <h3 class="h5">Track No {{ val.track_number }}</h3>
+        <table class="table table-striped table-bordered">
+          <tbody>
+            <tr>
+              <th>Artist</th>
+              <td>{{ val.performer }}</td>
+            </tr>
+            <tr>
+              <th>Title</th>
+              <td>{{ val.title }}</td>
+            </tr>
+            <tr>
+              <th>Index Time</th>
+              <td>{{ val.index_time }}</td>
+            </tr>
+            <tr>
+              <th>Filename</th>
+              <td>{{ val.track_filename }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

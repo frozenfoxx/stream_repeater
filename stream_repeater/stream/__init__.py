@@ -2,9 +2,11 @@
 
 if __package__:
     from .cuesheet import CueSheet
+    from .historysheet import HistorySheet
     from .stream import Stream
 else:
     from cuesheet import CueSheet
+    from historysheet import HistorySheet
     from stream import Stream
 from flask import Blueprint, current_app, render_template, abort, Flask, request, redirect, session, url_for
 from flask.json import jsonify
@@ -15,8 +17,13 @@ stream = Blueprint('stream', __name__, template_folder='templates')
 
 @stream.before_app_first_request
 def stream_init():
-    current_app.cuesheet = CueSheet(current_app.config['CONFIG'])
-    current_app.cuesheet.load()
+    # Load a CUE sheet if found, fallback to History sheet
+    if cuesheet in current_app.config['CONFIG']['stream']:
+        current_app.cuesheet = CueSheet(current_app.config['CONFIG'])
+        current_app.cuesheet.load()
+    elif historysheet in current_app.config['CONFIG']['stream']:
+        current_app.historysheet = HistorySheet(current_app.config['CONFIG'])
+        current_app.historysheet.load()
 
     current_app.stream = Stream(current_app.config['CONFIG'])
 
@@ -40,3 +47,8 @@ def stream_cuesheet():
     header = current_app.cuesheet.header
     tracks = current_app.cuesheet.tracks
     return render_template('stream/cuesheet.html', header=header, tracks=enumerate(tracks))
+
+@stream.route('/historysheet')
+def stream_historysheet():
+    tracks = current_app.historysheet.tracks
+    return render_template('stream/historysheet.html', tracks=enumerate(tracks))

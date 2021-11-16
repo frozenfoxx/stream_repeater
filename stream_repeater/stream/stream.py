@@ -1,7 +1,6 @@
 """ Convert, edit, and save streams """
 
 import os
-import sys
 from pydub import AudioSegment
 
 class Stream(object):
