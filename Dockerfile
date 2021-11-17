@@ -7,8 +7,8 @@ LABEL maintainer="FrozenFOXX <frozenfoxx@churchoffoxx.net>"
 # Variables
 WORKDIR /app
 ENV APPDIR="/app" \
-  APP_DEPS="ffmpeg imagemagick" \
-  BUILD_DEPS="build-base libffi-dev openssl-dev python3-dev" \
+  APP_DEPS="ffmpeg" \
+  BUILD_DEPS="build-base libffi-dev imagemagick-dev openssl-dev python3-dev" \
   CONFIG="/etc/stream_repeater/conf/stream_repeater.yaml" \
   FLASK_APP="stream_repeater" \
   FLASK_ENV="development" \
