@@ -27,7 +27,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Clean up 
-RUN apk remove ${BUILD_DEPS}
+RUN apk del ${BUILD_DEPS}
 
 # Expose listen port
 EXPOSE 5000
