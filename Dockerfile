@@ -7,7 +7,8 @@ LABEL maintainer="FrozenFOXX <frozenfoxx@churchoffoxx.net>"
 # Variables
 WORKDIR /app
 ENV APPDIR="/app" \
-  APP_DEPS="build-base ffmpeg imagemagick libffi-dev openssl-dev python3-dev" \
+  APP_DEPS="ffmpeg imagemagick" \
+  BUILD_DEPS="build-base libffi-dev openssl-dev python3-dev" \
   CONFIG="/etc/stream_repeater/conf/stream_repeater.yaml" \
   FLASK_APP="stream_repeater" \
   FLASK_ENV="development" \
@@ -16,7 +17,7 @@ ENV APPDIR="/app" \
   SECRET_KEY=''
 
 # Install package dependencies
-RUN apk -U add ${APP_DEPS}
+RUN apk -U add ${APP_DEPS} ${BUILD_DEPS}
 
 # Install Python dependencies
 COPY requirements.txt ./
@@ -24,6 +25,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy app source
 COPY . .
+
+# Clean up 
+RUN apk remove ${BUILD_DEPS}
 
 # Expose listen port
 EXPOSE 5000
