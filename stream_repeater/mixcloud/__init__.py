@@ -4,8 +4,8 @@ from flask import Blueprint, current_app, render_template, abort, Flask, request
 from flask.json import jsonify
 from jinja2 import TemplateNotFound
 from requests_oauthlib import OAuth2Session
-import os
-import requests
+from wand.image import Image
+import os, requests, shutil
 
 mixcloud = Blueprint('mixcloud', __name__, template_folder='templates')
 
@@ -89,24 +89,32 @@ def mixcloud_upload():
     data["name"] = current_app.stream.title
 
     # Determine CUE sheet or History sheet
-    # Build the tracklist headers and values from CUE sheet
-    for idx, val in enumerate(current_app.cuesheet.tracks):
-        artistKey = "sections-" + val.track_number + "-artist"
-        songKey = "sections-" + val.track_number + "-song"
-        timeKey = "sections-" + val.track_number + "-start_time"
-        data[artistKey] = val.performer
-        data[songKey] = val.title
-        data[timeKey] = val.index_time
-    # Build the tracklist headers and values for History sheet
+    if current_app.stream.cuesheet:
+        # Build the tracklist headers and values from CUE sheet
+        for idx, val in enumerate(current_app.cuesheet.tracks):
+            artistKey = "sections-" + val.track_number + "-artist"
+            songKey = "sections-" + val.track_number + "-song"
+            timeKey = "sections-" + val.track_number + "-start_time"
+            data[artistKey] = val.performer
+            data[songKey] = val.title
+            data[timeKey] = val.index_time
+    elif current_app.stream.historysheet:
+        # Build the tracklist headers and values for History sheet
+        for idx, val in enumerate(current_app.historysheet.tracks):
+            artistKey = "sections-" + val.track_number + "-artist"
+            songKey = "sections-" + val.track_number + "-song"
+            data[artistKey] = val.performer
+            data[songKey] = val.title
 
     # Build the tags
     for idx, tag in enumerate(current_app.stream.tags):
         tagKey = "tags-" + str(idx) + "-tag"
         data[tagKey] = tag
 
-    # Check for image
+    # Check for image and convert
     if current_app.stream.cover_path:
-        files["picture"] = open(current_app.stream.cover_path, 'rb')
+        converted_image_path = mixcloud_image_convert(current_app.stream.cover_path, current_app.stream.datadir)
+        files["picture"] = open(converted_image_path, 'rb')
 
     # Check for MP3 conversion
     if not current_app.stream.mp3_path:
@@ -117,6 +125,7 @@ def mixcloud_upload():
     # Authentication parameters
     params["access_token"] = session['oauth_token']['access_token']
 
+    # Send the request to upload
     response = requests.post(upload_url, data=data, params=params, files=files)
 
     try:
@@ -134,3 +143,26 @@ def mixcloud_upload():
                     return render_template('mixcloud/upload.html', success=True, text=result_text)
                 else:
                     return render_template('mixcloud/upload.html', success=False, text=response.text)
+
+    # Cleanup
+    if current_app.stream.cover_path:
+        os.remove(converted_image_path)
+
+def mixcloud_image_convert(image, datadir):
+    """ Resize and convert the supplied cover into a usable image """
+
+    converted_filename = datadir + "/mixcloud_cover.jpg"
+
+    # If it doesn't end with a jpg, convert to it
+    if not image.ends_with('.jpg'):
+        source_image_handle = Image(filename=image)
+        image_converted = source_image_handle.convert('jpg')
+        image_converted.save(filename=converted_filename)
+    else:
+        shutil.copy(image, converted_filename)
+
+    # Resize to the desired image dimensions
+    image_handle = Image(filename=converted_filename)
+    image_handle.resize(500,500)
+
+    return converted_filename
