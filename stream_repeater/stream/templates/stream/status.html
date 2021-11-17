@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Stream Status{% endblock %}
+
+{% block container %}
+<section>
+  <h2>Title</h2>
+  <p>{{ title }}</p>
+  <h2>Album</h2>
+  <p>{{ album }}</p>
+  <h2>Bitrate</h2>
+  <p>{{ bitrate }}</p>
+  <h2>Cover</h2>
+  <p><img src="{{ cover_path }}"></p>
+  <h2>Filename</h2>
+  <p>{{ filename }}</p>
+  <h2>Performer</h2>
+  <p>{{ performer }}</p>
+  <h2>Tags</h2>
+  <ul class="list-group">
+    {% for val in tags %}
+      <li class="list-group-item">
+        <h3 class="h5">{{ val }}</h3>
+      </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}
