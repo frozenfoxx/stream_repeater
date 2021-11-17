@@ -4,7 +4,9 @@ if __package__:
     from .track import Track
 else:
     from track import Track
-import datetime, re, time
+import datetime
+import re
+import time
 
 class CueSheet(object):
     """ CUE sheet-handling Object """

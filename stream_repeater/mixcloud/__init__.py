@@ -5,7 +5,9 @@ from flask.json import jsonify
 from jinja2 import TemplateNotFound
 from requests_oauthlib import OAuth2Session
 from wand.image import Image
-import os, requests, shutil
+import os
+import requests
+import shutil
 
 mixcloud = Blueprint('mixcloud', __name__, template_folder='templates')
 

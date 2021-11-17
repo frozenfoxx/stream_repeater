@@ -4,8 +4,7 @@ if __package__:
     from .options import Options
 else:
     from options import Options
-from os import environ, path
-import yaml
+from os import environ
 
 class Config:
     """ Base config """

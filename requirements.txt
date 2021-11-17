@@ -3,5 +3,4 @@ pydub
 pyyaml
 requests
 requests_oauthlib
-spotipy
 wand

@@ -11,7 +11,6 @@ else:
 from flask import Blueprint, current_app, render_template, abort, Flask, request, redirect, session, url_for
 from flask.json import jsonify
 from jinja2 import TemplateNotFound
-import os
 
 stream = Blueprint('stream', __name__, template_folder='templates')
 
