@@ -17,15 +17,15 @@ stream = Blueprint('stream', __name__, template_folder='templates')
 
 @stream.before_app_first_request
 def stream_init():
-    # Load a CUE sheet if found, fallback to History sheet
+    current_app.stream = Stream(current_app.config['CONFIG'])
+
+    # Load a CUE sheet if found, fall back to History sheet
     if cuesheet in current_app.config['CONFIG']['stream']:
         current_app.cuesheet = CueSheet(current_app.config['CONFIG'])
         current_app.cuesheet.load()
     elif historysheet in current_app.config['CONFIG']['stream']:
         current_app.historysheet = HistorySheet(current_app.config['CONFIG'])
         current_app.historysheet.load()
-
-    current_app.stream = Stream(current_app.config['CONFIG'])
 
 @stream.route('/')
 def stream_home():
@@ -46,9 +46,15 @@ def stream_convert_to_mp3():
 def stream_cuesheet():
     header = current_app.cuesheet.header
     tracks = current_app.cuesheet.tracks
-    return render_template('stream/cuesheet.html', header=header, tracks=enumerate(tracks))
+    try:
+        return render_template('stream/cuesheet.html', header=header, tracks=enumerate(tracks))
+    except TemplateNotFound:
+        abort(404)
 
 @stream.route('/historysheet')
 def stream_historysheet():
     tracks = current_app.historysheet.tracks
-    return render_template('stream/historysheet.html', tracks=enumerate(tracks))
+    try:
+        return render_template('stream/historysheet.html', tracks=enumerate(tracks))
+    except TemplateNotFound:
+        abort(404)
