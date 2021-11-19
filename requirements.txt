@@ -3,4 +3,4 @@ pydub
 pyyaml
 requests
 requests_oauthlib
-wand
+Wand

@@ -7,17 +7,22 @@ LABEL maintainer="FrozenFOXX <frozenfoxx@churchoffoxx.net>"
 # Variables
 WORKDIR /app
 ENV APPDIR="/app" \
-  APP_DEPS="ffmpeg" \
-  BUILD_DEPS="build-base libffi-dev imagemagick-dev openssl-dev python3-dev" \
+  APP_DEPS="ffmpeg imagemagick" \
+  BUILD_DEPS="build-base libffi-dev python3-dev" \
   CONFIG="/etc/stream_repeater/conf/stream_repeater.yaml" \
   FLASK_APP="stream_repeater" \
   FLASK_ENV="development" \
   FLASK_RUN_HOST="0.0.0.0" \
   FLASK_RUN_PORT="5000" \
+  MAGICK_HOME=/usr \
   SECRET_KEY=''
 
 # Install package dependencies
 RUN apk -U add ${APP_DEPS} ${BUILD_DEPS}
+
+# Add symlinks for Wand, https://docs.wand-py.org/en/0.6.7/guide/install.html#install-wand-on-alpine
+RUN ln -s /usr/lib/libMagickCore-7.Q16HDRI.so.9 /usr/lib/libMagickCore-7.Q16HDRI.so && \
+  ln -s /usr/lib/libMagickWand-7.Q16HDRI.so.9 /usr/lib/libMagickWand-7.Q16HDRI.so
 
 # Install Python dependencies
 COPY requirements.txt ./

@@ -12,7 +12,7 @@ class HistorySheet(object):
     def __init__(self, options):
         self.datadir = options['system']['datadir']
         self.historysheet = options['stream']['historysheet']
-        self.tracks = dict()
+        self.tracks = list()
 
     def dump(self):
         """ Dump the loaded History sheet """

@@ -19,10 +19,10 @@ def stream_init():
     current_app.stream = Stream(current_app.config['CONFIG'])
 
     # Load a CUE sheet if found, fall back to History sheet
-    if cuesheet in current_app.config['CONFIG']['stream']:
+    if 'cuesheet' in current_app.config['CONFIG']['stream']:
         current_app.cuesheet = CueSheet(current_app.config['CONFIG'])
         current_app.cuesheet.load()
-    elif historysheet in current_app.config['CONFIG']['stream']:
+    elif 'historysheet' in current_app.config['CONFIG']['stream']:
         current_app.historysheet = HistorySheet(current_app.config['CONFIG'])
         current_app.historysheet.load()
 
