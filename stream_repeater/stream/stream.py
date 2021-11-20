@@ -1,7 +1,7 @@
 """ Convert, edit, and save streams """
 
-import os
 from pydub import AudioSegment
+import os
 
 class Stream(object):
     """ Stream-handling Object """
@@ -11,8 +11,8 @@ class Stream(object):
         self.bitrate = options['stream']['bitrate']
         self.cover = options['stream']['cover']
         self.datadir = options['system']['datadir']
-        self.filename = options['stream']['filename']
         self.performer = options['stream']['performer']
+        self.sourcefile = options['stream']['sourcefile']
         self.tags = options['stream']['tags']
         self.title = options['stream']['title']
 
@@ -28,20 +28,31 @@ class Stream(object):
         else:
             self.historysheet = ''
 
+        # Check if a mp3file was supplied
+        if 'mp3file' in options['stream']:
+            self.mp3file = options['stream']['mp3file']
+        else:
+            self.mp3file = os.path.splitext(self.sourcefile)[0] + ".mp3"
+
+        # Set file pathing
         self.cover_path = self.datadir + "/" + self.cover
-        self.file_path = self.datadir + "/" + self.filename
-        self.mp3_path = ''
+        self.mp3file_path = self.datadir + "/" + self.mp3file
+        self.sourcefile_path = self.datadir + "/" + self.sourcefile
+
         print("Stream initialized")
 
     def convert_to_mp3(self):
         """ Convert a recording to MP3 """
 
-        print("Converting to MP3")
+        # Check if it has already been converted
+        if os.path.exists(self.mp3file_path):
+            return print("MP3 file already exists at " + self.mp3file_path)
 
-        recording = AudioSegment.from_wav(self.file_path)
-        self.mp3_path = os.path.splitext(self.file_path)[0] + ".mp3"
+        print("MP3 file not found, converting to MP3")
+
+        recording = AudioSegment.from_wav(self.sourcefile_path)
         recording.export(
-            self.mp3_path,
+            self.mp3file_path,
             bitrate=self.bitrate,
             format="mp3",
             tags={
@@ -52,4 +63,4 @@ class Stream(object):
             cover=self.cover_path
             )
 
-        return print("Converted " + self.file_path + " to " + self.mp3_path)
+        return print("Converted " + self.sourcefile_path + " to " + self.mp3file_path)
