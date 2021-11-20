@@ -45,6 +45,10 @@ def stream_convert_to_mp3():
 def stream_cuesheet():
     header = current_app.cuesheet.header
     tracks = current_app.cuesheet.tracks
+
+    if not current_app.cuesheet:
+        return "cuesheet not defined"
+
     try:
         return render_template('stream/cuesheet.html', header=header, tracks=enumerate(tracks))
     except TemplateNotFound:
@@ -53,6 +57,10 @@ def stream_cuesheet():
 @stream.route('/historysheet')
 def stream_historysheet():
     tracks = current_app.historysheet.tracks
+
+    if not current_app.historysheet:
+        return "historysheet not defined"
+
     try:
         return render_template('stream/historysheet.html', tracks=enumerate(tracks))
     except TemplateNotFound:
