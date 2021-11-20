@@ -13,9 +13,10 @@ stream:
   bitrate: "320k"
   cover: cover.jpg
   cuesheet: 'Cue Sheet.cue'
-  filename: 'filehere.wav'
   historysheet: 'History Sheet.txt'
+  mp3file: 'source.mp3'
   performer: "Various Artists"
+  sourcefile: 'source.wav'
   tags:
     - podcast
     - stream

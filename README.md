@@ -29,9 +29,10 @@ At this time a configuration file is required. A sample is provided in [./conf/s
   * `bitrate`: desired MP3 bitrate.
   * `cover`: cover image, will be resized if necessary for each service.
   * `cuesheet`: (optional) CUE file with time codes and track listing.
-  * `filename`: name of the file to use for conversion (WAV only at this time).
   * `historysheet`: (optional) history file with time codes and track listing.
+  * `mp3file`: (optional) name of the MP3 file. If it exists, it will not be overwritten. If no name provided, one will be generated.
   * `performer`: name of the performer.
+  * `sourcefile`: name of the file to use for conversion (WAV only at this time).
   * `tags`: array of tags to apply.
   * `title`: title of the stream.
 
