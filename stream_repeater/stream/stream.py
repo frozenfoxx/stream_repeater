@@ -2,6 +2,7 @@
 
 from pydub import AudioSegment
 import os
+import subprocess
 
 class Stream(object):
     """ Stream-handling Object """
@@ -50,17 +51,40 @@ class Stream(object):
 
         print("MP3 file not found, converting to MP3")
 
-        recording = AudioSegment.from_wav(self.sourcefile_path)
-        recording.export(
-            self.mp3file_path,
-            bitrate=self.bitrate,
-            format="mp3",
-            tags={
-                'artist': self.performer,
-                'album': self.album,
-                'title': self.title
-                },
-            cover=self.cover_path
-            )
+        # Build the command prefix
+        command = ["ffmpeg", "-v", "warning", "-hide_banner", "-stats"]
 
-        return print("Converted " + self.sourcefile_path + " to " + self.mp3file_path)
+        # Add the sourcefile
+        command.append(["-i", self.sourcefile_path])
+
+        # Add cover art
+        command.append(["-i", self.cover_path])
+
+        # Add the number of channels
+        command.append(["-ac", "2"])
+
+        # Add the sampling frequency
+        command.append(["-ar", "44100"])
+
+        # Add the format
+        command.append(["-f", "mp3"])
+
+        # Add the desired bitrate
+        command.append(["-b:a", self.bitrate])
+
+        # Add ID3v2 tags
+        command.append(["-write_id3v2", "1",
+            "-metadata",
+            "artist=" + self.performer,
+            "-metadata", "album=" + self.album,
+            "-metadata", "title=" + self.title])
+
+        # Add the mp3file_path output
+        command.append(self.mp3file_path)
+
+        try:
+            print("Running the following command:" + command)
+            subprocess.run(command)
+            return print("Converted " + self.sourcefile_path + " to " + self.mp3file_path)
+        except:
+            return print("Failed to convert " + self.sourcefile_path + " to " + self.mp3file_path)

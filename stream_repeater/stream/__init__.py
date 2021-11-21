@@ -69,6 +69,14 @@ def stream_historysheet():
 @stream.route('/status')
 def stream_status():
     try:
-        return render_template('stream/status.html', title=current_app.stream.title, album=current_app.stream.album, bitrate=current_app.stream.bitrate, cover_path=current_app.stream.cover_path, filename=current_app.stream.filename, performer=current_app.stream.performer, tags=enumerate(current_app.stream.tags))
+        return render_template('stream/status.html',
+            title=current_app.stream.title,
+            album=current_app.stream.album,
+            bitrate=current_app.stream.bitrate,
+            cover_path=current_app.stream.cover_path,
+            mp3file=current_app.stream.mp3file,
+            performer=current_app.stream.performer,
+            sourcefile=current_app.stream.sourcefile,
+            tags=enumerate(current_app.stream.tags))
     except TemplateNotFound:
         abort(404)
