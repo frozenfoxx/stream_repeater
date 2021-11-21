@@ -55,36 +55,36 @@ class Stream(object):
         command = ["ffmpeg", "-v", "warning", "-hide_banner", "-stats"]
 
         # Add the sourcefile
-        command.append(["-i", self.sourcefile_path])
+        command.extend(["-i", "\"" + self.sourcefile_path + "\""])
 
         # Add cover art
-        command.append(["-i", self.cover_path])
+        command.extend(["-i", "\"" + self.cover_path + "\""])
 
         # Add the number of channels
-        command.append(["-ac", "2"])
+        command.extend(["-ac", "2"])
 
         # Add the sampling frequency
-        command.append(["-ar", "44100"])
+        command.extend(["-ar", "44100"])
 
         # Add the format
-        command.append(["-f", "mp3"])
+        command.extend(["-f", "mp3"])
 
         # Add the desired bitrate
-        command.append(["-b:a", self.bitrate])
+        command.extend(["-b:a", self.bitrate])
 
         # Add ID3v2 tags
-        command.append(["-write_id3v2", "1",
-            "-metadata",
-            "artist=" + self.performer,
-            "-metadata", "album=" + self.album,
-            "-metadata", "title=" + self.title])
+        command.extend(["-write_id3v2", "1",
+            "-metadata", "artist=\"" + self.performer + "\"",
+            "-metadata", "album=\"" + self.album + "\"",
+            "-metadata", "title=\"" + self.title + "\""])
 
         # Add the mp3file_path output
-        command.append(self.mp3file_path)
+        command.append("\"" + self.mp3file_path + "\"")
+
+        print("Running the following command: " + " ".join(command))
 
         try:
-            print("Running the following command:" + command)
-            subprocess.run(command)
+            subprocess.run(" ".join(command), shell=True, check=True)
             return print("Converted " + self.sourcefile_path + " to " + self.mp3file_path)
         except:
             return print("Failed to convert " + self.sourcefile_path + " to " + self.mp3file_path)
