@@ -8,7 +8,7 @@ else:
     from cuesheet import CueSheet
     from historysheet import HistorySheet
     from stream import Stream
-from flask import Blueprint, current_app, render_template, abort, Flask, request, redirect, session, url_for
+from flask import Blueprint, current_app, render_template, abort, Flask, request, redirect, send_file, session, url_for
 from flask.json import jsonify
 from jinja2 import TemplateNotFound
 
@@ -33,12 +33,20 @@ def stream_home():
     except TemplateNotFound:
         abort(404)
 
+
 @stream.route('/convert/mp3')
 def stream_convert_to_mp3():
     current_app.stream.convert_to_mp3()
     try:
         return render_template('stream/convert.html', success=True)
     except TemplateNotFound:
+        abort(404)
+
+@stream.route('/cover')
+def stream_cover():
+    try:
+        return send_file(current_app.stream.cover_path)
+    except:
         abort(404)
 
 @stream.route('/cuesheet')
@@ -73,7 +81,6 @@ def stream_status():
             title=current_app.stream.title,
             album=current_app.stream.album,
             bitrate=current_app.stream.bitrate,
-            cover_path=current_app.stream.cover_path,
             mp3file=current_app.stream.mp3file,
             performer=current_app.stream.performer,
             sourcefile=current_app.stream.sourcefile,

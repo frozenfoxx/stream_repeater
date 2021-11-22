@@ -3,27 +3,20 @@
 
 {% block container %}
 <section>
-  <h2>Title</h2>
-  <p>{{ title }}</p>
-  <h2>Album</h2>
-  <p>{{ album }}</p>
-  <h2>Bitrate</h2>
-  <p>{{ bitrate }}</p>
-  <h2>Cover</h2>
-  <p><img src="{{ cover_path }}" alt="Cover Image"></p>
-  <h2>MP3file</h2>
-  <p>{{ mp3file }}</p>
-  <h2>Performer</h2>
-  <p>{{ performer }}</p>
-  <h2>Sourcefile</h2>
-  <p>{{ sourcefile }}</p>
-  <h2>Tags</h2>
+  <b>Title</b>: {{ title }}<br>
+  <b>Album</b>: {{ album }}<br>
+  <b>Bitrate</b>: {{ bitrate }}<br>
+  <b>MP3file</b>: {{ mp3file }}<br>
+  <b>Performer</b>: {{ performer }}<br>
+  <b>Sourcefile</b>: {{ sourcefile }}<br>
+  <b>Tags</b>:
   <ul class="list-group">
     {% for val in tags %}
-      <li class="list-group-item">
-        <h3 class="h5">{{ val }}</h3>
-      </li>
+    <li class="list-group-item">
+      <i>{{ val }}</i>
+    </li>
     {% endfor %}
   </ul>
+  <b>Cover</b>:<br><img src="/stream/cover" alt="Cover Image"><br>
 </section>
 {% endblock %}
