@@ -8,8 +8,7 @@ else:
     from cuesheet import CueSheet
     from historysheet import HistorySheet
     from stream import Stream
-from flask import Blueprint, current_app, render_template, abort, Flask, request, redirect, send_file, session, url_for
-from flask.json import jsonify
+from flask import Blueprint, current_app, render_template, abort, Flask, request, send_file, session
 from jinja2 import TemplateNotFound
 
 stream = Blueprint('stream', __name__, template_folder='templates')
@@ -51,26 +50,22 @@ def stream_cover():
 
 @stream.route('/cuesheet')
 def stream_cuesheet():
-    header = current_app.cuesheet.header
-    tracks = current_app.cuesheet.tracks
-
-    if not current_app.cuesheet:
-        return "cuesheet not defined"
-
     try:
+        header = current_app.cuesheet.header
+        tracks = current_app.cuesheet.tracks
         return render_template('stream/cuesheet.html', header=header, tracks=enumerate(tracks))
+    except AttributeError:
+        return "cuesheet not defined"
     except TemplateNotFound:
         abort(404)
 
 @stream.route('/historysheet')
 def stream_historysheet():
-    tracks = current_app.historysheet.tracks
-
-    if not current_app.historysheet:
-        return "historysheet not defined"
-
     try:
+        tracks = current_app.historysheet.tracks
         return render_template('stream/historysheet.html', tracks=enumerate(tracks))
+    except AttributeError:
+        return "historysheet not defined"
     except TemplateNotFound:
         abort(404)
 
