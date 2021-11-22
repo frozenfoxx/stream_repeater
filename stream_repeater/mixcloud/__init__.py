@@ -153,18 +153,20 @@ def mixcloud_upload():
 def mixcloud_image_convert(image, datadir):
     """ Resize and convert the supplied cover into a usable image """
 
+    # Set a temporary filename
     converted_filename = datadir + "/mixcloud_cover.jpg"
 
+    # Get a handle for the image
+    image_handle = Image(filename=image)
+    
     # If it doesn't end with a jpg, convert to it
     if not image.ends_with('.jpg'):
-        source_image_handle = Image(filename=image)
-        image_converted = source_image_handle.convert('jpg')
-        image_converted.save(filename=converted_filename)
-    else:
-        shutil.copy(image, converted_filename)
+        image_handle.convert('jpg')
 
     # Resize to the desired image dimensions
-    image_handle = Image(filename=converted_filename)
     image_handle.resize(500,500)
+
+    # Save to the new filename
+    image_handle.save(filename=converted_filename)
 
     return converted_filename
