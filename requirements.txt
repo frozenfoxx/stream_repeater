@@ -1,5 +1,4 @@
 flask==2.0.1
-pydub
 pyyaml
 requests
 requests_oauthlib

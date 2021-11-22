@@ -1,6 +1,5 @@
 """ Convert, edit, and save streams """
 
-from pydub import AudioSegment
 import os
 import subprocess
 
