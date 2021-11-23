@@ -39,6 +39,9 @@ class Stream(object):
         self.mp3file_path = self.datadir + "/" + self.mp3file
         self.sourcefile_path = self.datadir + "/" + self.sourcefile
 
+        # Set handle for conversion subprocess
+        self.convert_command = ''
+
         print("Stream initialized")
 
     def convert_to_mp3(self):
@@ -83,7 +86,7 @@ class Stream(object):
         print("Running the following command: " + " ".join(command))
 
         try:
-            subprocess.run(" ".join(command), shell=True, check=True)
+            self.convert_command = subprocess.run(" ".join(command), shell=True, check=True)
             return print("Converted " + self.sourcefile_path + " to " + self.mp3file_path)
         except:
             return print("Failed to convert " + self.sourcefile_path + " to " + self.mp3file_path)
