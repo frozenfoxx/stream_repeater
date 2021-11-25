@@ -36,18 +36,14 @@ def stream_home():
 @stream.route('/convert/mp3')
 def stream_convert_to_mp3():
     try:
-        if current_app.stream.convert_to_mp3():
-            return render_template('stream/convert.html', success=True)
-        else:
-            return render_template('stream/convert.html', success=False)
+        return render_template('stream/convert.html', success=current_app.stream.convert_to_mp3())
     except TemplateNotFound:
         abort(404)
-    except:
-        abort(500)
 
 @stream.route('/convert/mp3/status')
 def stream_convert_to_mp3_status():
     try:
+        print(current_app.stream.convert_command.poll())
         if current_app.stream.convert_command.poll() is None:
             return print("Converting")
         else:

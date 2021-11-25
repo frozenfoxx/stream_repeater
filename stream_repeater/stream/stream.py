@@ -49,7 +49,8 @@ class Stream(object):
 
         # Check if it has already been converted
         if os.path.exists(self.mp3file_path):
-            return print("MP3 file already exists at " + self.mp3file_path)
+            print("MP3 file already exists at " + self.mp3file_path)
+            return True
 
         print("MP3 file not found, converting to MP3")
 
@@ -87,6 +88,8 @@ class Stream(object):
 
         try:
             self.convert_command = subprocess.run(" ".join(command), shell=True, check=True)
-            return print("Converted " + self.sourcefile_path + " to " + self.mp3file_path)
+            print("Converted " + self.sourcefile_path + " to " + self.mp3file_path)
+            return True
         except:
-            return print("Failed to convert " + self.sourcefile_path + " to " + self.mp3file_path)
+            print("Failed to convert " + self.sourcefile_path + " to " + self.mp3file_path)
+            return False
