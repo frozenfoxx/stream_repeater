@@ -39,10 +39,23 @@ class Stream(object):
         self.mp3file_path = self.datadir + "/" + self.mp3file
         self.sourcefile_path = self.datadir + "/" + self.sourcefile
 
-        # Set handle for conversion subprocess
-        self.convert_command = ''
-
         print("Stream initialized")
+
+    def conversion_run(self, cmd):
+        """ Run a conversion command """
+
+        print("Running the following command: " + " ".join(cmd))
+
+        with subprocess.Popen(cmd,
+            shell=True,
+            stdout=subprocess.PIPE,
+            bufsize=1,
+            universal_newlines=True) as p:
+            for line in p.stdout:
+                print(line, end='')
+
+        if p.returncode != 0:
+            raise subprocess.CalledProcessError(p.returncode, p.args)
 
     def convert_to_mp3(self):
         """ Convert a recording to MP3 """
@@ -55,7 +68,7 @@ class Stream(object):
         print("MP3 file not found, converting to MP3")
 
         # Build the command prefix
-        command = ["ffmpeg", "-v", "warning", "-hide_banner", "-stats"]
+        command = ["ffmpeg", "-v", "warning", "-hide_banner", "-progress", "-", "-nostats"]
 
         # Add the sourcefile
         command.extend(["-i", "\"" + self.sourcefile_path + "\""])
@@ -84,10 +97,8 @@ class Stream(object):
         # Add the mp3file_path output
         command.append("\"" + self.mp3file_path + "\"")
 
-        print("Running the following command: " + " ".join(command))
-
         try:
-            self.convert_command = subprocess.run(" ".join(command), shell=True, check=True)
+            self.conversion_run(command)
             print("Converted " + self.sourcefile_path + " to " + self.mp3file_path)
             return True
         except:

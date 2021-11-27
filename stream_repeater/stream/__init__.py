@@ -43,7 +43,7 @@ def stream_convert_to_mp3():
 @stream.route('/convert/mp3/status')
 def stream_convert_to_mp3_status():
     try:
-        print(current_app.stream.convert_command.poll())
+        print(str(current_app.stream.convert_command.poll()))
         if current_app.stream.convert_command.poll() is None:
             return print("Converting")
         else:
