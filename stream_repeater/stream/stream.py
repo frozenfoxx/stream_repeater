@@ -44,10 +44,11 @@ class Stream(object):
     def conversion_run(self, cmd):
         """ Run a conversion command """
 
-        print("Running the following command: " + " ".join(cmd))
+        print("Running the following command: " + cmd)
 
         with subprocess.Popen(cmd,
             shell=True,
+            stderr=subprocess.STDOUT,
             stdout=subprocess.PIPE,
             bufsize=1,
             universal_newlines=True) as p:
@@ -68,7 +69,7 @@ class Stream(object):
         print("MP3 file not found, converting to MP3")
 
         # Build the command prefix
-        command = ["ffmpeg", "-v", "warning", "-hide_banner", "-progress", "-", "-nostats"]
+        command = ["ffmpeg", "-progress", "-", "-nostats"]
 
         # Add the sourcefile
         command.extend(["-i", "\"" + self.sourcefile_path + "\""])
@@ -98,7 +99,7 @@ class Stream(object):
         command.append("\"" + self.mp3file_path + "\"")
 
         try:
-            self.conversion_run(command)
+            self.conversion_run(" ".join(command))
             print("Converted " + self.sourcefile_path + " to " + self.mp3file_path)
             return True
         except:
