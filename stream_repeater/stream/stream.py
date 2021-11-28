@@ -1,7 +1,32 @@
 """ Convert, edit, and save streams """
 
+import re
 import os
 import subprocess
+
+DUR_REGEX = re.compile(
+    r"Duration: (?P<hour>\d{2}):(?P<min>\d{2}):(?P<sec>\d{2})\.(?P<ms>\d{2})"
+)
+TIME_REGEX = re.compile(
+    r"out_time=(?P<hour>\d{2}):(?P<min>\d{2}):(?P<sec>\d{2})\.(?P<ms>\d{2})"
+)
+
+def to_ms(s=None, des=None, **kwargs) -> float:
+    if s:
+        hour = int(s[0:2])
+        minute = int(s[3:5])
+        sec = int(s[6:8])
+        ms = int(s[10:11])
+    else:
+        hour = int(kwargs.get("hour", 0))
+        minute = int(kwargs.get("min", 0))
+        sec = int(kwargs.get("sec", 0))
+        ms = int(kwargs.get("ms", 0))
+
+    result = (hour * 60 * 60 * 1000) + (minute * 60 * 1000) + (sec * 1000) + ms
+    if des and isinstance(des, int):
+        return round(result, des)
+    return result
 
 class Stream(object):
     """ Stream-handling Object """
@@ -44,6 +69,8 @@ class Stream(object):
     def conversion_run(self, cmd):
         """ Run a conversion command """
 
+        total_dur = None
+
         print("Running the following command: " + cmd)
 
         with subprocess.Popen(cmd,
@@ -53,7 +80,16 @@ class Stream(object):
             bufsize=1,
             universal_newlines=True) as p:
             for line in p.stdout:
-                print(line, end='')
+                #print(line, end='')
+                if not total_dur and DUR_REGEX.search(line):
+                    total_dur = DUR_REGEX.search(line).groupdict()
+                    total_dur = to_ms(**total_dur)
+                    continue
+                if total_dur:
+                    result = TIME_REGEX.search(line)
+                    if result:
+                        elapsed_time = to_ms(**result.groupdict())
+                        yield int(elapsed_time / total_dur * 100)
 
         if p.returncode != 0:
             raise subprocess.CalledProcessError(p.returncode, p.args)
@@ -99,7 +135,9 @@ class Stream(object):
         command.append("\"" + self.mp3file_path + "\"")
 
         try:
-            self.conversion_run(" ".join(command))
+            for i in self.conversion_run(" ".join(command)):
+                print("Percentage converted: " + str(i))
+
             print("Converted " + self.sourcefile_path + " to " + self.mp3file_path)
             return True
         except:
