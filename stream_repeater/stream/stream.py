@@ -80,7 +80,7 @@ class Stream(object):
             bufsize=1,
             universal_newlines=True) as p:
             for line in p.stdout:
-                #print(line, end='')
+                #DEBUG: print(line, end='')
                 if not total_dur and DUR_REGEX.search(line):
                     total_dur = DUR_REGEX.search(line).groupdict()
                     total_dur = to_ms(**total_dur)
@@ -136,7 +136,7 @@ class Stream(object):
 
         try:
             for i in self.conversion_run(" ".join(command)):
-                print("Percentage converted: " + str(i))
+                #DEBUG: print("Percentage converted: " + str(i))
                 yield "data: " + str(i) + "\n\n"
         except:
             print("Failed to convert " + self.sourcefile_path + " to " + self.mp3file_path)
