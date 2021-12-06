@@ -56,4 +56,4 @@ Then access [http://localhost:5000](http://localhost:5000). If a `SECRET_KEY` is
 
 # Licenses
 
-This software is provided under the Apache License, with the [Simple Sidebar Bootstrap theme](https://startbootstrap.com/template/simple-sidebar) covered by the MIT license.
+This software is provided under the Apache License. [Simple Sidebar Bootstrap theme](https://startbootstrap.com/template/simple-sidebar) and [jQuery](https://jquery.com/) are covered by the MIT license.

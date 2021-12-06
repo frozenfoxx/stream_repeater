@@ -100,7 +100,7 @@ class Stream(object):
         # Check if it has already been converted
         if os.path.exists(self.mp3file_path):
             print("MP3 file already exists at " + self.mp3file_path)
-            return True
+            return "data: 100"
 
         print("MP3 file not found, converting to MP3")
 
@@ -137,9 +137,7 @@ class Stream(object):
         try:
             for i in self.conversion_run(" ".join(command)):
                 print("Percentage converted: " + str(i))
-
-            print("Converted " + self.sourcefile_path + " to " + self.mp3file_path)
-            return True
+                yield "data: " + str(i) + "\n\n"
         except:
             print("Failed to convert " + self.sourcefile_path + " to " + self.mp3file_path)
-            return False
+            yield "data: -1"

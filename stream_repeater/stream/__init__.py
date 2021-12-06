@@ -8,7 +8,7 @@ else:
     from cuesheet import CueSheet
     from historysheet import HistorySheet
     from stream import Stream
-from flask import Blueprint, current_app, render_template, abort, Flask, request, send_file, session
+from flask import Blueprint, current_app, render_template, abort, Flask, request, Response, send_file, session
 from jinja2 import TemplateNotFound
 
 stream = Blueprint('stream', __name__, template_folder='templates')
@@ -36,18 +36,14 @@ def stream_home():
 @stream.route('/convert/mp3')
 def stream_convert_to_mp3():
     try:
-        return render_template('stream/convert.html', success=current_app.stream.convert_to_mp3())
+        return render_template('stream/convert.html')
     except TemplateNotFound:
         abort(404)
 
 @stream.route('/convert/mp3/status')
 def stream_convert_to_mp3_status():
     try:
-        print(str(current_app.stream.convert_command.poll()))
-        if current_app.stream.convert_command.poll() is None:
-            return print("Converting")
-        else:
-            return print("Done")
+        return Response(current_app.stream.convert_to_mp3(), mimetype='text/event-stream')
     except:
         abort(500)
 
