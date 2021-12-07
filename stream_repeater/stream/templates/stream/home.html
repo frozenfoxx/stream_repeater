@@ -2,14 +2,12 @@
 
 {% block container %}
 <div>
-  <h2>
-    Stream Home
-  </h2>
-  <p>
+    <h2>
+        Stream Home
+    </h2>
     <a href="{{ url_for('stream.stream_convert_to_mp3') }}">Convert to MP3</a><br>
     <a href="{{ url_for('stream.stream_cuesheet') }}">CUE Sheet</a><br>
     <a href="{{ url_for('stream.stream_historysheet') }}">History Sheet</a><br>
     <a href="{{ url_for('stream.stream_status') }}">Status</a><br>
-  </p>
 </div>
 {% endblock %}

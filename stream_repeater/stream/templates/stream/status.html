@@ -2,21 +2,24 @@
 {% block title %}Stream Status{% endblock %}
 
 {% block container %}
+<h2>
+    Stream Status
+</h2>
 <section>
-  <b>Title</b>: {{ title }}<br>
-  <b>Album</b>: {{ album }}<br>
-  <b>Bitrate</b>: {{ bitrate }}<br>
-  <b>Conversion Status</b>: <i>{{ "converted" if converted else "not converted" }}</i><br>
-  <b>Performer</b>: {{ performer }}<br>
-  <b>Sourcefile</b>: {{ sourcefile }}<br>
-  <b>Tags</b>:
-  <ul class="list-group">
-    {% for val in tags %}
-    <li class="list-group-item">
-      <i>{{ val }}</i>
-    </li>
-    {% endfor %}
-  </ul>
-  <b>Cover</b>:<br><img src="/stream/cover" alt="Cover Image"><br>
+    <b>Title</b>: {{ title }}<br>
+    <b>Album</b>: {{ album }}<br>
+    <b>Bitrate</b>: {{ bitrate }}<br>
+    <b>Conversion Status</b>: <i>{{ "converted" if converted else "not converted" }}</i><br>
+    <b>Performer</b>: {{ performer }}<br>
+    <b>Sourcefile</b>: {{ sourcefile }}<br>
+    <b>Tags</b>:
+    <ul class="list-group">
+        {% for val in tags %}
+        <li class="list-group-item">
+        <i>{{ val }}</i>
+        </li>
+        {% endfor %}
+    </ul>
+    <b>Cover</b>:<br><img src="/stream/cover" alt="Cover Image"><br>
 </section>
 {% endblock %}

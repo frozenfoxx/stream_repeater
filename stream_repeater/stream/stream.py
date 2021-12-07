@@ -102,7 +102,7 @@ class Stream(object):
         # Check if it has already been converted
         if os.path.exists(self.mp3file_path):
             print("MP3 file already exists at " + self.mp3file_path)
-            yield "data: 100"
+            yield "data: 100\n\n"
         else:
             print("MP3 file not found, converting to MP3")
 
