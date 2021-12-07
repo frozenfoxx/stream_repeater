@@ -10,6 +10,11 @@
 
             if(event.data == 100){
                 source.close()
+                window.location.replace("{{ url_for('stream.stream_status') }}");
+            }
+            if(event.data == -1){
+                source.close()
+                window.location.replace("{{ url_for('stream.stream_status') }}");
             }
         }
     </script>

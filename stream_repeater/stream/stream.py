@@ -93,6 +93,8 @@ class Stream(object):
 
         if p.returncode != 0:
             raise subprocess.CalledProcessError(p.returncode, p.args)
+        else:
+            yield 100
 
     def convert_to_mp3(self):
         """ Convert a recording to MP3 """
@@ -100,44 +102,44 @@ class Stream(object):
         # Check if it has already been converted
         if os.path.exists(self.mp3file_path):
             print("MP3 file already exists at " + self.mp3file_path)
-            return "data: 100"
+            yield "data: 100"
+        else:
+            print("MP3 file not found, converting to MP3")
 
-        print("MP3 file not found, converting to MP3")
+            # Build the command prefix
+            command = ["ffmpeg", "-progress", "-", "-nostats"]
 
-        # Build the command prefix
-        command = ["ffmpeg", "-progress", "-", "-nostats"]
+            # Add the sourcefile
+            command.extend(["-i", "\"" + self.sourcefile_path + "\""])
 
-        # Add the sourcefile
-        command.extend(["-i", "\"" + self.sourcefile_path + "\""])
+            # Add cover art
+            command.extend(["-i", "\"" + self.cover_path + "\""])
 
-        # Add cover art
-        command.extend(["-i", "\"" + self.cover_path + "\""])
+            # Add the number of channels
+            command.extend(["-ac", "2"])
 
-        # Add the number of channels
-        command.extend(["-ac", "2"])
+            # Add the sampling frequency
+            command.extend(["-ar", "44100"])
 
-        # Add the sampling frequency
-        command.extend(["-ar", "44100"])
+            # Add the format
+            command.extend(["-f", "mp3"])
 
-        # Add the format
-        command.extend(["-f", "mp3"])
+            # Add the desired bitrate
+            command.extend(["-b:a", self.bitrate])
 
-        # Add the desired bitrate
-        command.extend(["-b:a", self.bitrate])
+            # Add ID3v2 tags
+            command.extend(["-write_id3v2", "1",
+                "-metadata", "artist=\"" + self.performer + "\"",
+                "-metadata", "album=\"" + self.album + "\"",
+                "-metadata", "title=\"" + self.title + "\""])
 
-        # Add ID3v2 tags
-        command.extend(["-write_id3v2", "1",
-            "-metadata", "artist=\"" + self.performer + "\"",
-            "-metadata", "album=\"" + self.album + "\"",
-            "-metadata", "title=\"" + self.title + "\""])
+            # Add the mp3file_path output
+            command.append("\"" + self.mp3file_path + "\"")
 
-        # Add the mp3file_path output
-        command.append("\"" + self.mp3file_path + "\"")
-
-        try:
-            for i in self.conversion_run(" ".join(command)):
-                #DEBUG: print("Percentage converted: " + str(i))
-                yield "data: " + str(i) + "\n\n"
-        except:
-            print("Failed to convert " + self.sourcefile_path + " to " + self.mp3file_path)
-            yield "data: -1"
+            # Run the conversion
+            try:
+                for i in self.conversion_run(" ".join(command)):
+                    yield "data: " + str(i) + "\n\n"
+            except:
+                print("Failed to convert " + self.sourcefile_path + " to " + self.mp3file_path)
+                yield "data: -1"

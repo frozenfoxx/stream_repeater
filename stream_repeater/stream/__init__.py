@@ -10,6 +10,7 @@ else:
     from stream import Stream
 from flask import Blueprint, current_app, render_template, abort, Flask, request, Response, send_file, session
 from jinja2 import TemplateNotFound
+from os.path import exists
 
 stream = Blueprint('stream', __name__, template_folder='templates')
 
@@ -82,7 +83,7 @@ def stream_status():
             title=current_app.stream.title,
             album=current_app.stream.album,
             bitrate=current_app.stream.bitrate,
-            mp3file=current_app.stream.mp3file,
+            converted=exists(current_app.stream.mp3file_path),
             performer=current_app.stream.performer,
             sourcefile=current_app.stream.sourcefile,
             tags=enumerate(current_app.stream.tags))
