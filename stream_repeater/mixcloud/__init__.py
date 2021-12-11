@@ -160,7 +160,7 @@ def mixcloud_image_convert(image, datadir):
     image_handle = Image(filename=image)
     
     # If it doesn't end with a jpg, convert to it
-    if not image.ends_with('.jpg'):
+    if not image.endswith('.jpg'):
         image_handle.convert('jpg')
 
     # Resize to the desired image dimensions
