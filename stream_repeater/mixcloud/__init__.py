@@ -119,10 +119,10 @@ def mixcloud_upload():
         files["picture"] = open(converted_image_path, 'rb')
 
     # Check for MP3 conversion
-    if not current_app.stream.mp3_path:
+    if not current_app.stream.mp3file_path:
         return "Stream not yet converted, please select 'Stream > convert' first"
     else:
-        files["mp3"] = open(current_app.stream.mp3_path, 'rb')
+        files["mp3"] = open(current_app.stream.mp3file_path, 'rb')
 
     # Authentication parameters
     params["access_token"] = session['oauth_token']['access_token']
