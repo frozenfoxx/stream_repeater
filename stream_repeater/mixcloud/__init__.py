@@ -90,21 +90,28 @@ def mixcloud_upload():
     # Set the title
     data["name"] = current_app.stream.title
 
-    # Determine CUE sheet or History sheet
+    # Determine CUE sheet or History sheet is present
     if current_app.stream.cuesheet:
         # Build the tracklist headers and values from CUE sheet
         for idx, val in enumerate(current_app.cuesheet.tracks):
-            artistKey = "sections-" + val.track_number + "-artist"
-            songKey = "sections-" + val.track_number + "-song"
-            timeKey = "sections-" + val.track_number + "-start_time"
+            # Convert the track number to handle Mixcloud's requirements
+            mixcloud_track_number = str(int(val.track_number) - 1)
+
+            artistKey = "sections-" + mixcloud_track_number + "-artist"
+            songKey = "sections-" + mixcloud_track_number + "-song"
+            timeKey = "sections-" + mixcloud_track_number + "-start_time"
             data[artistKey] = val.performer
             data[songKey] = val.title
             data[timeKey] = val.index_time
+
     elif current_app.stream.historysheet:
         # Build the tracklist headers and values for History sheet
         for idx, val in enumerate(current_app.historysheet.tracks):
-            artistKey = "sections-" + val.track_number + "-artist"
-            songKey = "sections-" + val.track_number + "-song"
+            # Convert the track number to handle Mixcloud's requirements
+            mixcloud_track_number = str(int(val.track_number) - 1)
+
+            artistKey = "sections-" + mixcloud_track_number + "-artist"
+            songKey = "sections-" + mixcloud_track_number + "-song"
             data[artistKey] = val.performer
             data[songKey] = val.title
 
