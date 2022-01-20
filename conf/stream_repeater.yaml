@@ -3,9 +3,6 @@ accounts:
   mixcloud:
     client_id: client_id_here
     client_secret: client_secret_here
-  spotify: 
-    client_id: client_id_here
-    client_secret: client_secret_here
 system:
   datadir: /data
 stream:
