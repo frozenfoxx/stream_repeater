@@ -16,7 +16,7 @@ setuptools.setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/frozenfoxx/stream_repeater",
-    download_url = 'https://github.com/frozenfoxx/stream_repeater/archive/v0.1.0.tar.gz',
+    download_url = 'https://github.com/frozenfoxx/stream_repeater/archive/refs/tags/0.1.0.tar.gz',
     packages=["stream_repeater"],
     include_package_data=True,
     classifiers=[
