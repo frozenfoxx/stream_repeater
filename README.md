@@ -1,6 +1,6 @@
 # stream_repeater
 
-[![Build Status](https://cloud.drone.io/api/badges/frozenfoxx/stream_repeater/status.svg?ref=refs/heads/main)](https://cloud.drone.io/frozenfoxx/stream_repeater)
+[![Actions Status](https://github.com/frozenfoxx/stream_repeater/workflows/build/badge.svg)](https://github.com/frozenfoxx/stream_repeater/actions)
 
 Convert, upload, and post audio and video streams to remote services.
 
