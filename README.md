@@ -1,6 +1,6 @@
 # stream_repeater
 
-[![Actions Status](https://github.com/frozenfoxx/stream_repeater/workflows/build/badge.svg)](https://github.com/frozenfoxx/stream_repeater/actions)
+[![Build](https://github.com/frozenfoxx/stream_repeater/actions/workflows/build.yml/badge.svg)](https://github.com/frozenfoxx/stream_repeater/actions/workflows/build.yml)
 
 Convert, upload, and post audio and video streams to remote services.
 
